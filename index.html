@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BLACKWOOD // INCIDENT BR-017</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, #121820 0%, #090c10 45%, #050608 100%);
+  color: #d7dde5;
+  font-family: "Courier New", monospace;
+}
+
+.topbar {
+  border-bottom: 1px solid #2f3944;
+  background: rgba(8,10,13,.95);
+  padding: 16px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-weight: bold;
+  letter-spacing: 3px;
+  color: #f2f5f7;
+}
+
+.status {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #e76f51;
+}
+
+.wrapper {
+  width: min(1100px, 94%);
+  margin: 36px auto;
+}
+
+.hero {
+  border: 1px solid #303944;
+  background: rgba(14,18,23,.88);
+  padding: 28px;
+  box-shadow: 0 0 30px rgba(0,0,0,.25);
+}
+
+.incident {
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #e76f51;
+  margin-bottom: 10px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(36px, 7vw, 72px);
+  letter-spacing: 4px;
+  line-height: .95;
+}
+
+.subtitle {
+  margin-top: 14px;
+  color: #9aa5b1;
+  line-height: 1.6;
+  max-width: 760px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.card {
+  border: 1px solid #303944;
+  background: #0d1116;
+  padding: 20px;
+  min-height: 150px;
+  transition: .18s ease;
+}
+
+.card:hover {
+  border-color: #607080;
+  transform: translateY(-2px);
+}
+
+.card h2 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+.card p {
+  color: #8995a3;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.locked {
+  opacity: .48;
+}
+
+.tag {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 5px 8px;
+  border: 1px solid #3a4652;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.alert {
+  color: #e76f51;
+}
+
+.ok {
+  color: #89b99a;
+}
+
+.footer {
+  margin: 28px 0 40px;
+  text-align: center;
+  color: #46515d;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 850px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="brand">BLACKWOOD RESEARCH SYSTEMS</div>
+  <div class="status">SEVERITY: CRITICAL</div>
+</div>
+
+<div class="wrapper">
+
+  <div class="hero">
+    <div class="incident">INCIDENT RESPONSE // BR-017</div>
+
+    <h1>INCIDENT<br>COMMAND</h1>
+
+    <div class="subtitle">
+      Unauthorized activity has been detected within the Blackwood network.
+      Security telemetry has been preserved for investigation.
+      Reconstruct the attack path, identify the compromised assets,
+      and submit an incident assessment when sufficient evidence has been collected.
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <h2>ALERTS</h2>
+      <p>
+        Review security alerts generated during the suspected compromise window.
+      </p>
+      <span class="tag alert">6 EVENTS</span>
+    </div>
+
+    <div class="card">
+      <h2>AUTHENTICATION</h2>
+      <p>
+        Examine successful and failed account authentication activity.
+      </p>
+      <span class="tag">LOGS AVAILABLE</span>
+    </div>
+
+    <div class="card">
+      <h2>ENDPOINTS</h2>
+      <p>
+        Review workstation telemetry, processes, and device activity.
+      </p>
+      <span class="tag">4 ASSETS</span>
+    </div>
+
+    <div class="card">
+      <h2>NETWORK</h2>
+      <p>
+        Inspect internal and outbound network activity associated with the incident.
+      </p>
+      <span class="tag">PCAP SUMMARY</span>
+    </div>
+
+    <div class="card">
+      <h2>COMMUNICATIONS</h2>
+      <p>
+        Review recovered internal communications and contextual evidence.
+      </p>
+      <span class="tag">RECOVERED</span>
+    </div>
+
+    <div class="card locked">
+      <h2>ASSESSMENT</h2>
+      <p>
+        Submit your incident findings after reviewing available evidence.
+      </p>
+      <span class="tag">PENDING ANALYSIS</span>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    BLACKWOOD SECURITY OPERATIONS // INCIDENT BR-017
+  </div>
+
+</div>
+
+</body>
+</html>
