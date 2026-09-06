@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Communications // Blackwood Security Operations</title>
+
+<style>
+* { box-sizing: border-box; }
+
+:root {
+  --bg: #0f141a;
+  --sidebar: #121820;
+  --panel: #171e27;
+  --panel-2: #1c2530;
+  --border: #2b3642;
+  --text: #e6ebf0;
+  --muted: #8d99a6;
+  --blue: #65a8ff;
+  --green: #67c587;
+  --yellow: #e0b75b;
+  --red: #f06a6a;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, Arial, Helvetica, sans-serif;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+  padding: 22px 16px;
+}
+
+.logo {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 28px;
+}
+
+.logo span {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 5px;
+  letter-spacing: 1px;
+}
+
+.nav-title {
+  color: #5f6c79;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 20px 10px 8px;
+}
+
+.nav-item {
+  display: block;
+  padding: 11px 12px;
+  margin: 4px 0;
+  border-radius: 6px;
+  color: #b9c3cd;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.nav-item:hover {
+  background: #1b2430;
+}
+
+.nav-item.active {
+  background: #223043;
+  color: white;
+}
+
+.nav-item.locked {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.main {
+  min-width: 0;
+}
+
+.topbar {
+  height: 62px;
+  border-bottom: 1px solid var(--border);
+  background: #11171e;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.breadcrumb {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.breadcrumb strong {
+  color: var(--text);
+}
+
+.severity {
+  background: rgba(240,106,106,.12);
+  border: 1px solid rgba(240,106,106,.35);
+  color: var(--red);
+  padding: 7px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.content {
+  padding: 26px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.header p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.metric {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.metric-label {
+  color: var(--muted);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+}
+
+.metric-value {
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 650;
+}
+
+.blue { color: var(--blue); }
+.green { color: var(--green); }
+.yellow { color: var(--yellow); }
+
+.comms-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 16px;
+}
+
+.thread-list,
+.message-panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 13px 16px;
+  background: var(--panel-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 13px;
+}
+
+.thread {
+  padding: 15px 16px;
+  border-bottom: 1px solid #242e38;
+}
+
+.thread:last-child {
+  border-bottom: none;
+}
+
+.thread.active {
+  background: #1d2733;
+}
+
+.thread-name {
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.thread-subject {
+  margin-top: 5px;
+  color: #d2d9e0;
+  font-size: 12px;
+}
+
+.thread-meta {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.message {
+  padding: 20px;
+  border-bottom: 1px solid #242e38;
+}
+
+.message:last-child {
+  border-bottom: none;
+}
+
+.message-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: start;
+  margin-bottom: 16px;
+}
+
+.sender {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.address {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.timestamp {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.subject {
+  color: var(--blue);
+  font-size: 12px;
+  margin-bottom: 14px;
+}
+
+.body {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #dce2e8;
+}
+
+.quote {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: #121820;
+  border-left: 3px solid #3f5265;
+  color: #b7c0c9;
+  font-family: monospace;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.tag {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.relevant {
+  color: var(--yellow);
+  background: rgba(224,183,91,.1);
+}
+
+.context {
+  color: var(--green);
+  background: rgba(103,197,135,.1);
+}
+
+.note {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #121820;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+@media (max-width: 950px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .comms-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      BLACKWOOD
+      <span>SECURITY OPERATIONS</span>
+    </div>
+
+    <div class="nav-title">Incident</div>
+
+    <a class="nav-item" href="index.html">Overview</a>
+    <a class="nav-item" href="alerts.html">Alerts</a>
+    <a class="nav-item" href="authentication.html">Authentication</a>
+    <a class="nav-item" href="endpoints.html">Endpoints</a>
+    <a class="nav-item" href="network.html">Network</a>
+    <a class="nav-item active" href="communications.html">Communications</a>
+
+    <div class="nav-title">Response</div>
+
+    <a class="nav-item locked" href="#">Assessment 🔒</a>
+
+  </aside>
+
+  <main class="main">
+
+    <div class="topbar">
+
+      <div class="breadcrumb">
+        Incident BR-017 / <strong>Communications</strong>
+      </div>
+
+      <div class="severity">
+        CRITICAL INCIDENT
+      </div>
+
+    </div>
+
+    <div class="content">
+
+      <div class="header">
+        <h1>Recovered Communications</h1>
+        <p>
+          Internal communications preserved during the BR-017 investigation.
+        </p>
+      </div>
+
+      <div class="metrics">
+
+        <div class="metric">
+          <div class="metric-label">Messages Recovered</div>
+          <div class="metric-value blue">4</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-label">Employees Represented</div>
+          <div class="metric-value green">3</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-label">Incident Relevant</div>
+          <div class="metric-value yellow">2</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-label">Preservation Status</div>
+          <div class="metric-value green">Complete</div>
+        </div>
+
+      </div>
+
+      <div class="comms-grid">
+
+        <section class="thread-list">
+
+          <div class="panel-header">
+            <h2>Recovered Threads</h2>
+          </div>
+
+          <div class="thread active">
+            <div class="thread-name">Elias Ward → Morgan Carter</div>
+            <div class="thread-subject">Tomorrow’s research review</div>
+            <div class="thread-meta">09/04/2026 · 4:18 PM</div>
+          </div>
+
+          <div class="thread">
+            <div class="thread-name">Jordan Reyes → Morgan Carter</div>
+            <div class="thread-subject">Maintenance tonight</div>
+            <div class="thread-meta">09/04/2026 · 6:52 PM</div>
+          </div>
+
+          <div class="thread">
+            <div class="thread-name">Research Operations</div>
+            <div class="thread-subject">Weekly storage allocation report</div>
+            <div class="thread-meta">09/03/2026 · 9:15 AM</div>
+          </div>
+
+          <div class="thread">
+            <div class="thread-name">Facilities</div>
+            <div class="thread-subject">West wing badge reader maintenance</div>
+            <div class="thread-meta">09/02/2026 · 2:06 PM</div>
+          </div>
+
+        </section>
+
+        <section class="message-panel">
+
+          <div class="panel-header">
+            <h2>Preserved Message Content</h2>
+          </div>
+
+          <div class="message">
+
+            <div class="message-header">
+              <div>
+                <div class="sender">Elias Ward</div>
+                <div class="address">E.WARD // Research Operations</div>
+              </div>
+
+              <div class="timestamp">
+                09/04/2026 16:18
+              </div>
+            </div>
+
+            <div class="subject">
+              Subject: Tomorrow’s research review
+            </div>
+
+            <div class="body">
+              Morgan,
+              <br><br>
+              I finished incorporating the revisions from today’s review.
+              The updated research package is available in the Nightfall project directory.
+              <br><br>
+              Please use the current files for tomorrow’s review rather than the local copies
+              from earlier this week.
+              <br><br>
+              — Elias
+            </div>
+
+            <div class="quote">
+              R:\Research\Project_Nightfall\
+            </div>
+
+            <span class="tag relevant">RESEARCH ACCESS CONTEXT</span>
+
+          </div>
+
+          <div class="message">
+
+            <div class="message-header">
+              <div>
+                <div class="sender">Jordan Reyes</div>
+                <div class="address">J.REYES // Systems Engineering</div>
+              </div>
+
+              <div class="timestamp">
+                09/04/2026 18:52
+              </div>
+            </div>
+
+            <div class="subject">
+              Subject: Maintenance tonight
+            </div>
+
+            <div class="body">
+              Morgan,
+              <br><br>
+              Systems Engineering will be performing scheduled workstation maintenance
+              overnight.
+              <br><br>
+              You may see administrative logins, management traffic, or removable-device
+              events on engineering workstations during the maintenance window.
+              <br><br>
+              No action is required unless your assigned workstation becomes unavailable.
+              <br><br>
+              — Jordan Reyes
+              <br>
+              Systems Engineering
+            </div>
+
+            <span class="tag context">AUTHORIZED MAINTENANCE CONTEXT</span>
+
+          </div>
+
+        </section>
+
+      </div>
+
+      <div class="note">
+        Recovered communications may provide operational context but should not be
+        treated as dispositive on their own. Correlate message content with authentication,
+        endpoint, and network telemetry.
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>
