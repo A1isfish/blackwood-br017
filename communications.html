@@ -413,29 +413,29 @@ body {
             <h2>Recovered Threads</h2>
           </div>
 
-          <div class="thread active">
-            <div class="thread-name">Elias Ward → Morgan Carter</div>
-            <div class="thread-subject">Tomorrow’s research review</div>
-            <div class="thread-meta">09/04/2026 · 4:18 PM</div>
-          </div>
+        <div class="thread active" onclick="showMessage('elias', this)">
+  <div class="thread-name">Elias Ward → Morgan Carter</div>
+  <div class="thread-subject">Tomorrow’s research review</div>
+  <div class="thread-meta">09/04/2026 · 4:18 PM</div>
+</div>
 
-          <div class="thread">
-            <div class="thread-name">Jordan Reyes → Morgan Carter</div>
-            <div class="thread-subject">Maintenance tonight</div>
-            <div class="thread-meta">09/04/2026 · 6:52 PM</div>
-          </div>
+<div class="thread" onclick="showMessage('jordan', this)">
+  <div class="thread-name">Jordan Reyes → Morgan Carter</div>
+  <div class="thread-subject">Maintenance tonight</div>
+  <div class="thread-meta">09/04/2026 · 6:52 PM</div>
+</div>
 
-          <div class="thread">
-            <div class="thread-name">Research Operations</div>
-            <div class="thread-subject">Weekly storage allocation report</div>
-            <div class="thread-meta">09/03/2026 · 9:15 AM</div>
-          </div>
+<div class="thread" onclick="showMessage('storage', this)">
+  <div class="thread-name">Research Operations</div>
+  <div class="thread-subject">Weekly storage allocation report</div>
+  <div class="thread-meta">09/03/2026 · 9:15 AM</div>
+</div>
 
-          <div class="thread">
-            <div class="thread-name">Facilities</div>
-            <div class="thread-subject">West wing badge reader maintenance</div>
-            <div class="thread-meta">09/02/2026 · 2:06 PM</div>
-          </div>
+<div class="thread" onclick="showMessage('facilities', this)">
+  <div class="thread-name">Facilities</div>
+  <div class="thread-subject">West wing badge reader maintenance</div>
+  <div class="thread-meta">09/02/2026 · 2:06 PM</div>
+</div>
 
         </section>
 
@@ -445,7 +445,7 @@ body {
             <h2>Preserved Message Content</h2>
           </div>
 
-          <div class="message">
+          <div class="message" id="elias">
 
             <div class="message-header">
               <div>
@@ -482,7 +482,7 @@ body {
 
           </div>
 
-          <div class="message">
+          <div class="message" id="jordan" style="display:none;">
 
             <div class="message-header">
               <div>
@@ -518,7 +518,71 @@ body {
             <span class="tag context">AUTHORIZED MAINTENANCE CONTEXT</span>
 
           </div>
+<div class="message" id="storage" style="display:none;">
 
+  <div class="message-header">
+    <div>
+      <div class="sender">Research Operations</div>
+      <div class="address">RESEARCH OPERATIONS // Internal Distribution</div>
+    </div>
+
+    <div class="timestamp">
+      09/03/2026 09:15
+    </div>
+  </div>
+
+  <div class="subject">
+    Subject: Weekly storage allocation report
+  </div>
+
+  <div class="body">
+    Research Operations personnel,
+    <br><br>
+    The weekly storage allocation review has been completed.
+    Current departmental storage utilization remains within approved thresholds.
+    <br><br>
+    Employees should continue using assigned project directories for research
+    materials and remove unnecessary local duplicates when no longer required.
+    <br><br>
+    No action is required at this time.
+    <br><br>
+    — Research Operations
+  </div>
+
+</div>
+
+
+<div class="message" id="facilities" style="display:none;">
+
+  <div class="message-header">
+    <div>
+      <div class="sender">Facilities</div>
+      <div class="address">FACILITIES // Blackwood Research Systems</div>
+    </div>
+
+    <div class="timestamp">
+      09/02/2026 14:06
+    </div>
+  </div>
+
+  <div class="subject">
+    Subject: West wing badge reader maintenance
+  </div>
+
+  <div class="body">
+    Employees,
+    <br><br>
+    Facilities will perform routine maintenance on the west wing badge readers
+    Thursday between 7:00 AM and 8:00 AM.
+    <br><br>
+    Brief access delays may occur while individual readers are restarted.
+    Employees experiencing continued badge-access issues after the maintenance
+    window should contact Facilities.
+    <br><br>
+    — Facilities
+  </div>
+
+</div>
         </section>
 
       </div>
@@ -534,6 +598,22 @@ body {
   </main>
 
 </div>
+<script>
+function showMessage(messageId, clickedThread) {
 
+  document.querySelectorAll('.message').forEach(function(message) {
+    message.style.display = 'none';
+  });
+
+  document.getElementById(messageId).style.display = 'block';
+
+  document.querySelectorAll('.thread').forEach(function(thread) {
+    thread.classList.remove('active');
+  });
+
+  clickedThread.classList.add('active');
+}
+</script>
+  
 </body>
 </html>
