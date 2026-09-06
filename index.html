@@ -3,141 +3,338 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>BLACKWOOD // INCIDENT BR-017</title>
+<title>Blackwood Security Operations</title>
 
 <style>
 * {
   box-sizing: border-box;
 }
 
+:root {
+  --bg: #0f141a;
+  --sidebar: #121820;
+  --panel: #171e27;
+  --panel-2: #1c2530;
+  --border: #2b3642;
+  --text: #e6ebf0;
+  --muted: #8d99a6;
+  --blue: #65a8ff;
+  --green: #67c587;
+  --yellow: #e0b75b;
+  --red: #f06a6a;
+}
+
 body {
   margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, Arial, Helvetica, sans-serif;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 230px 1fr;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top, #121820 0%, #090c10 45%, #050608 100%);
-  color: #d7dde5;
-  font-family: "Courier New", monospace;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+  padding: 22px 16px;
+}
+
+.logo {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 28px;
+}
+
+.logo span {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 5px;
+  letter-spacing: 1px;
+}
+
+.nav-title {
+  color: #5f6c79;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 20px 10px 8px;
+}
+
+.nav-item {
+  display: block;
+  padding: 11px 12px;
+  margin: 4px 0;
+  border-radius: 6px;
+  color: #b9c3cd;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.nav-item:hover {
+  background: #1b2430;
+}
+
+.nav-item.active {
+  background: #223043;
+  color: white;
+}
+
+.nav-item.locked {
+  opacity: .4;
+}
+
+/* MAIN */
+
+.main {
+  min-width: 0;
 }
 
 .topbar {
-  border-bottom: 1px solid #2f3944;
-  background: rgba(8,10,13,.95);
-  padding: 16px 22px;
+  height: 62px;
+  border-bottom: 1px solid var(--border);
+  background: #11171e;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.breadcrumb {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.breadcrumb strong {
+  color: var(--text);
+}
+
+.severity {
+  background: rgba(240,106,106,.12);
+  border: 1px solid rgba(240,106,106,.35);
+  color: var(--red);
+  padding: 7px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.content {
+  padding: 26px;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 650;
+}
+
+.header p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* METRICS */
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.metric {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.metric-label {
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+}
+
+.metric-value {
+  font-size: 26px;
+  margin-top: 6px;
+  font-weight: 650;
+}
+
+.metric-value.red {
+  color: var(--red);
+}
+
+.metric-value.yellow {
+  color: var(--yellow);
+}
+
+.metric-value.green {
+  color: var(--green);
+}
+
+.metric-value.blue {
+  color: var(--blue);
+}
+
+/* DASHBOARD PANELS */
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1.4fr .8fr;
+  gap: 16px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.brand {
-  font-weight: bold;
-  letter-spacing: 3px;
-  color: #f2f5f7;
-}
-
-.status {
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: #e76f51;
-}
-
-.wrapper {
-  width: min(1100px, 94%);
-  margin: 36px auto;
-}
-
-.hero {
-  border: 1px solid #303944;
-  background: rgba(14,18,23,.88);
-  padding: 28px;
-  box-shadow: 0 0 30px rgba(0,0,0,.25);
-}
-
-.incident {
-  font-size: 12px;
-  letter-spacing: 3px;
-  color: #e76f51;
-  margin-bottom: 10px;
-}
-
-h1 {
+.panel-header h2 {
+  font-size: 13px;
   margin: 0;
-  font-size: clamp(36px, 7vw, 72px);
-  letter-spacing: 4px;
-  line-height: .95;
 }
 
-.subtitle {
-  margin-top: 14px;
-  color: #9aa5b1;
-  line-height: 1.6;
-  max-width: 760px;
+.panel-header span {
+  color: var(--muted);
+  font-size: 11px;
 }
 
-.grid {
+.alert-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 22px;
-}
-
-.card {
-  border: 1px solid #303944;
-  background: #0d1116;
-  padding: 20px;
-  min-height: 150px;
-  transition: .18s ease;
-}
-
-.card:hover {
-  border-color: #607080;
-  transform: translateY(-2px);
-}
-
-.card h2 {
-  margin: 0 0 8px;
-  font-size: 16px;
-  letter-spacing: 2px;
-}
-
-.card p {
-  color: #8995a3;
+  grid-template-columns: 78px 115px 1fr 90px;
+  padding: 13px 16px;
+  border-bottom: 1px solid #222c36;
   font-size: 12px;
-  line-height: 1.6;
+  align-items: center;
 }
 
-.locked {
-  opacity: .48;
+.alert-row:last-child {
+  border-bottom: none;
 }
 
-.tag {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 5px 8px;
-  border: 1px solid #3a4652;
+.time {
+  color: var(--muted);
+}
+
+.type {
+  color: #b7c0c9;
+}
+
+.event {
+  color: #e5e9ed;
+}
+
+.risk {
+  justify-self: end;
   font-size: 10px;
-  letter-spacing: 2px;
+  font-weight: 700;
+  padding: 4px 7px;
+  border-radius: 3px;
 }
 
-.alert {
-  color: #e76f51;
+.risk.high {
+  color: var(--red);
+  background: rgba(240,106,106,.1);
 }
 
-.ok {
-  color: #89b99a;
+.risk.medium {
+  color: var(--yellow);
+  background: rgba(224,183,91,.1);
 }
 
-.footer {
-  margin: 28px 0 40px;
-  text-align: center;
-  color: #46515d;
+.risk.low {
+  color: var(--green);
+  background: rgba(103,197,135,.1);
+}
+
+/* INCIDENT SUMMARY */
+
+.summary {
+  padding: 16px;
+}
+
+.summary-row {
+  margin-bottom: 16px;
+}
+
+.summary-label {
+  color: var(--muted);
   font-size: 10px;
-  letter-spacing: 2px;
+  text-transform: uppercase;
+  letter-spacing: .8px;
 }
 
-@media (max-width: 850px) {
-  .grid {
+.summary-value {
+  margin-top: 5px;
+  font-size: 13px;
+}
+
+.progress {
+  margin-top: 8px;
+  height: 6px;
+  background: #28323c;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 18%;
+  height: 100%;
+  background: var(--blue);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .app {
     grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .alert-row {
+    grid-template-columns: 65px 1fr;
+    gap: 6px;
+  }
+
+  .type,
+  .risk {
+    display: none;
   }
 }
 </style>
@@ -145,81 +342,169 @@ h1 {
 
 <body>
 
-<div class="topbar">
-  <div class="brand">BLACKWOOD RESEARCH SYSTEMS</div>
-  <div class="status">SEVERITY: CRITICAL</div>
-</div>
+<div class="app">
 
-<div class="wrapper">
+  <aside class="sidebar">
 
-  <div class="hero">
-    <div class="incident">INCIDENT RESPONSE // BR-017</div>
-
-    <h1>INCIDENT<br>COMMAND</h1>
-
-    <div class="subtitle">
-      Unauthorized activity has been detected within the Blackwood network.
-      Security telemetry has been preserved for investigation.
-      Reconstruct the attack path, identify the compromised assets,
-      and submit an incident assessment when sufficient evidence has been collected.
-    </div>
-  </div>
-
-  <div class="grid">
-
-    <div class="card">
-      <h2>ALERTS</h2>
-      <p>
-        Review security alerts generated during the suspected compromise window.
-      </p>
-      <span class="tag alert">6 EVENTS</span>
+    <div class="logo">
+      BLACKWOOD
+      <span>SECURITY OPERATIONS</span>
     </div>
 
-    <div class="card">
-      <h2>AUTHENTICATION</h2>
-      <p>
-        Examine successful and failed account authentication activity.
-      </p>
-      <span class="tag">LOGS AVAILABLE</span>
+    <div class="nav-title">Incident</div>
+
+    <a class="nav-item active" href="#">Overview</a>
+    <a class="nav-item" href="alerts.html">Alerts</a>
+    <a class="nav-item" href="#">Authentication</a>
+    <a class="nav-item" href="#">Endpoints</a>
+    <a class="nav-item" href="#">Network</a>
+    <a class="nav-item" href="#">Communications</a>
+
+    <div class="nav-title">Response</div>
+
+    <a class="nav-item locked" href="#">Assessment 🔒</a>
+
+  </aside>
+
+  <main class="main">
+
+    <div class="topbar">
+
+      <div class="breadcrumb">
+        Incident Response / <strong>BR-017</strong>
+      </div>
+
+      <div class="severity">
+        CRITICAL INCIDENT
+      </div>
+
     </div>
 
-    <div class="card">
-      <h2>ENDPOINTS</h2>
-      <p>
-        Review workstation telemetry, processes, and device activity.
-      </p>
-      <span class="tag">4 ASSETS</span>
+    <div class="content">
+
+      <div class="header">
+        <h1>Incident BR-017</h1>
+        <p>
+          Unauthorized activity detected across Blackwood Research Systems.
+          Investigation in progress.
+        </p>
+      </div>
+
+      <div class="metrics">
+
+        <div class="metric">
+          <div class="metric-label">Security Alerts</div>
+          <div class="metric-value red">6</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-label">Affected Accounts</div>
+          <div class="metric-value yellow">1</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-label">Assets Under Review</div>
+          <div class="metric-value blue">4</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-label">Containment</div>
+          <div class="metric-value green">Pending</div>
+        </div>
+
+      </div>
+
+      <div class="dashboard">
+
+        <section class="panel">
+
+          <div class="panel-header">
+            <h2>Recent Security Events</h2>
+            <span>Incident window</span>
+          </div>
+
+          <div class="alert-row">
+            <div class="time">01:47</div>
+            <div class="type">AUTH</div>
+            <div class="event">Authentication failure detected</div>
+            <div class="risk medium">MEDIUM</div>
+          </div>
+
+          <div class="alert-row">
+            <div class="time">01:49</div>
+            <div class="type">AUTH</div>
+            <div class="event">Suspicious successful authentication</div>
+            <div class="risk high">HIGH</div>
+          </div>
+
+          <div class="alert-row">
+            <div class="time">01:53</div>
+            <div class="type">ENDPOINT</div>
+            <div class="event">Unexpected process execution</div>
+            <div class="risk high">HIGH</div>
+          </div>
+
+          <div class="alert-row">
+            <div class="time">02:04</div>
+            <div class="type">NETWORK</div>
+            <div class="event">Abnormal outbound transfer detected</div>
+            <div class="risk high">HIGH</div>
+          </div>
+
+          <div class="alert-row">
+            <div class="time">02:11</div>
+            <div class="type">DEVICE</div>
+            <div class="event">Removable media mounted</div>
+            <div class="risk low">LOW</div>
+          </div>
+
+        </section>
+
+        <section class="panel">
+
+          <div class="panel-header">
+            <h2>Incident Summary</h2>
+            <span>BR-017</span>
+          </div>
+
+          <div class="summary">
+
+            <div class="summary-row">
+              <div class="summary-label">Incident Status</div>
+              <div class="summary-value">Under Investigation</div>
+            </div>
+
+            <div class="summary-row">
+              <div class="summary-label">Initial Access</div>
+              <div class="summary-value">Unknown</div>
+            </div>
+
+            <div class="summary-row">
+              <div class="summary-label">Compromised Identity</div>
+              <div class="summary-value">Unknown</div>
+            </div>
+
+            <div class="summary-row">
+              <div class="summary-label">Affected Endpoint</div>
+              <div class="summary-value">Unknown</div>
+            </div>
+
+            <div class="summary-row">
+              <div class="summary-label">Investigation Progress</div>
+              <div class="progress">
+                <div class="progress-bar"></div>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
     </div>
 
-    <div class="card">
-      <h2>NETWORK</h2>
-      <p>
-        Inspect internal and outbound network activity associated with the incident.
-      </p>
-      <span class="tag">PCAP SUMMARY</span>
-    </div>
-
-    <div class="card">
-      <h2>COMMUNICATIONS</h2>
-      <p>
-        Review recovered internal communications and contextual evidence.
-      </p>
-      <span class="tag">RECOVERED</span>
-    </div>
-
-    <div class="card locked">
-      <h2>ASSESSMENT</h2>
-      <p>
-        Submit your incident findings after reviewing available evidence.
-      </p>
-      <span class="tag">PENDING ANALYSIS</span>
-    </div>
-
-  </div>
-
-  <div class="footer">
-    BLACKWOOD SECURITY OPERATIONS // INCIDENT BR-017
-  </div>
+  </main>
 
 </div>
 
