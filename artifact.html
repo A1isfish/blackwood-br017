@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restricted Artifact // Blackwood Research Systems</title>
+
+<style>
+* { box-sizing:border-box; }
+
+:root {
+  --bg:#0b0f13;
+  --panel:#11171d;
+  --panel2:#151d25;
+  --border:#27323c;
+  --text:#e6ebf0;
+  --muted:#7f8b96;
+  --green:#69d18b;
+  --yellow:#e4bc61;
+  --red:#f06d6d;
+  --blue:#69aefc;
+}
+
+html, body {
+  min-height:100%;
+}
+
+body {
+  margin:0;
+  background:
+    radial-gradient(circle at 50% 10%, rgba(50,80,110,.09), transparent 38%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter, Arial, Helvetica, sans-serif;
+}
+
+.shell {
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+}
+
+.frame {
+  width:min(900px, 100%);
+}
+
+.brand {
+  margin-bottom:18px;
+  font-size:12px;
+  letter-spacing:2px;
+  font-weight:800;
+  color:#cad3dc;
+}
+
+.brand span {
+  display:block;
+  margin-top:5px;
+  color:#596673;
+  font-size:9px;
+  letter-spacing:1.4px;
+}
+
+.classification {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+  padding:10px 13px;
+  border:1px solid rgba(240,109,109,.35);
+  background:rgba(240,109,109,.06);
+  color:#e99b9b;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1.1px;
+  margin-bottom:12px;
+}
+
+.panel {
+  border:1px solid var(--border);
+  background:rgba(17,23,29,.97);
+  box-shadow:0 18px 60px rgba(0,0,0,.32);
+}
+
+.panel-head {
+  padding:22px 24px 18px;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg, #151d25, #11171d);
+}
+
+.eyebrow {
+  color:var(--yellow);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1.2px;
+  margin-bottom:8px;
+}
+
+h1 {
+  margin:0;
+  font-size:27px;
+  letter-spacing:.2px;
+}
+
+.subtitle {
+  margin:9px 0 0;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.65;
+  max-width:700px;
+}
+
+.body {
+  padding:24px;
+}
+
+.artifact-grid {
+  display:grid;
+  grid-template-columns:170px 1fr;
+  gap:10px 18px;
+  padding:16px;
+  background:#0d1318;
+  border:1px solid #202b34;
+  margin-bottom:20px;
+  font-size:11px;
+}
+
+.k {
+  color:#66737f;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+}
+
+.v {
+  font-family:Consolas, Monaco, monospace;
+  color:#c9d2da;
+}
+
+.lock {
+  border:1px solid rgba(228,188,97,.35);
+  background:rgba(228,188,97,.045);
+  padding:19px;
+  margin-bottom:18px;
+}
+
+.lock-title {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#f0d391;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.8px;
+  margin-bottom:8px;
+}
+
+.lock-title::before {
+  content:"";
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--yellow);
+  box-shadow:0 0 12px rgba(228,188,97,.55);
+}
+
+.lock p {
+  margin:0;
+  color:#9aa6b1;
+  font-size:11px;
+  line-height:1.65;
+}
+
+.credential-box {
+  border:1px solid #25313b;
+  background:#0c1217;
+  padding:18px;
+}
+
+.credential-label {
+  font-size:10px;
+  color:#7b8894;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+
+.credential-status {
+  font-family:Consolas, Monaco, monospace;
+  font-size:13px;
+  color:var(--yellow);
+  margin-bottom:15px;
+}
+
+.scanline {
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(105,209,139,.7), transparent);
+  margin:14px 0 18px;
+  animation:sweep 2.4s linear infinite;
+}
+
+@keyframes sweep {
+  0% { opacity:.15; transform:scaleX(.2); }
+  50% { opacity:1; transform:scaleX(1); }
+  100% { opacity:.15; transform:scaleX(.2); }
+}
+
+.form-row {
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+}
+
+input {
+  width:100%;
+  background:#080d11;
+  border:1px solid #34424f;
+  color:#dce4eb;
+  border-radius:4px;
+  padding:12px 13px;
+  font-family:Consolas, Monaco, monospace;
+  font-size:12px;
+  outline:none;
+  letter-spacing:.5px;
+}
+
+input:focus {
+  border-color:#58718a;
+  box-shadow:0 0 0 2px rgba(105,174,252,.08);
+}
+
+button {
+  border:1px solid #3d607d;
+  background:#203d55;
+  color:#f1f6fa;
+  border-radius:4px;
+  padding:0 16px;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.7px;
+  cursor:pointer;
+}
+
+button:hover { background:#294d69; }
+
+.feedback {
+  display:none;
+  margin-top:13px;
+  padding:10px 11px;
+  border-radius:4px;
+  font-family:Consolas, Monaco, monospace;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.feedback.bad {
+  display:block;
+  color:var(--red);
+  background:rgba(240,109,109,.06);
+  border:1px solid rgba(240,109,109,.18);
+}
+
+.feedback.good {
+  display:block;
+  color:var(--green);
+  background:rgba(105,209,139,.06);
+  border:1px solid rgba(105,209,139,.18);
+}
+
+.note {
+  margin-top:16px;
+  color:#65727d;
+  font-size:10px;
+  line-height:1.6;
+}
+
+.footer {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:12px;
+  color:#4e5a64;
+  font-family:Consolas, Monaco, monospace;
+  font-size:9px;
+}
+
+.decrypt {
+  display:none;
+  margin-top:18px;
+  border:1px solid rgba(105,209,139,.28);
+  background:#08100b;
+  color:var(--green);
+  padding:16px;
+  font-family:Consolas, Monaco, monospace;
+  font-size:11px;
+  line-height:1.65;
+  white-space:pre-wrap;
+}
+
+.decrypt.active { display:block; }
+
+@media(max-width:650px) {
+  .shell { padding:16px; align-items:flex-start; }
+  .classification { align-items:flex-start; flex-direction:column; }
+  .artifact-grid { grid-template-columns:1fr; }
+  .form-row { grid-template-columns:1fr; }
+  button { min-height:42px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="shell">
+  <div class="frame">
+
+    <div class="brand">
+      BLACKWOOD RESEARCH SYSTEMS
+      <span>SECURE EVIDENCE REPOSITORY // INCIDENT RESPONSE DIVISION</span>
+    </div>
+
+    <div class="classification">
+      <span>BLACKWOOD // INTERNAL // TIER IV</span>
+      <span>BR-017 // RESTRICTED ARTIFACT</span>
+    </div>
+
+    <section class="panel">
+
+      <div class="panel-head">
+        <div class="eyebrow">POST-CONTAINMENT ARTIFACT ACCESS</div>
+        <h1>Recovered Volatile Artifact</h1>
+        <p class="subtitle">
+          Automated analysis has been suspended. The recovered artifact is protected by
+          restricted-evidence controls and requires hardware-backed operator authentication
+          before decryption may proceed.
+        </p>
+      </div>
+
+      <div class="body">
+
+        <div class="artifact-grid">
+          <div class="k">Incident</div>
+          <div class="v">BR-017</div>
+
+          <div class="k">Source</div>
+          <div class="v">WS-044</div>
+
+          <div class="k">Process</div>
+          <div class="v">powershell.exe</div>
+
+          <div class="k">Evidence Time</div>
+          <div class="v">01:57:18</div>
+
+          <div class="k">Artifact State</div>
+          <div class="v">ENCODED / ACCESS CONTROLLED</div>
+
+          <div class="k">Operator</div>
+          <div class="v">J.BROSSART // BW-SOC-271</div>
+        </div>
+
+        <div class="lock">
+          <div class="lock-title">PHYSICAL CREDENTIAL REQUIRED</div>
+          <p>
+            Interactive artifact recovery requires validation through an assigned
+            Blackwood Security Operations hardware credential. Present the physical
+            credential issued to the Incident Commander and use the authorized recovery
+            service to obtain an artifact access code.
+          </p>
+        </div>
+
+        <div class="credential-box">
+          <div class="credential-label">Restricted Evidence Authentication</div>
+          <div class="credential-status">AWAITING VALID ARTIFACT ACCESS CODE...</div>
+
+          <div class="scanline"></div>
+
+          <div class="form-row">
+            <input
+              id="accessCode"
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="ENTER ACCESS CODE"
+            >
+            <button onclick="verifyCode()">VALIDATE ACCESS</button>
+          </div>
+
+          <div id="feedback" class="feedback"></div>
+
+          <div id="decryptOutput" class="decrypt"></div>
+
+          <div class="note">
+            Recovery credentials are not transmitted through the standard SOC console.
+            Authorized operators must use a registered physical credential to access
+            Blackwood recovery services.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="footer">
+      <span>NODE: BRS-EVID-04</span>
+      <span>SESSION: BR017-RVA</span>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+/*
+  Final puzzle credential.
+  The hidden NFC recovery page will be designed to make the player derive this value.
+*/
+const VALID_ACCESS_CODE = "NIGHTFALL-044-271";
+
+let unlocked = false;
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function normalize(value) {
+  return value.trim().toUpperCase();
+}
+
+async function verifyCode() {
+
+  if(unlocked) return;
+
+  const input = document.getElementById("accessCode");
+  const feedback = document.getElementById("feedback");
+  const decrypt = document.getElementById("decryptOutput");
+  const submitted = normalize(input.value);
+
+  feedback.className = "feedback";
+  feedback.textContent = "";
+  decrypt.className = "decrypt";
+  decrypt.textContent = "";
+
+  if(!submitted) {
+    feedback.className = "feedback bad";
+    feedback.textContent = "AUTHENTICATION FAILED // ARTIFACT ACCESS CODE REQUIRED";
+    return;
+  }
+
+  feedback.className = "feedback good";
+  feedback.textContent = "VALIDATING RESTRICTED CREDENTIAL...";
+
+  await delay(850);
+
+  if(submitted !== VALID_ACCESS_CODE) {
+    feedback.className = "feedback bad";
+    feedback.textContent =
+      "ACCESS DENIED // RECOVERY CREDENTIAL INVALID OR INCOMPLETE";
+    input.select();
+    return;
+  }
+
+  unlocked = true;
+  input.disabled = true;
+
+  feedback.className = "feedback good";
+  feedback.textContent = "CREDENTIAL ACCEPTED // BEGINNING ARTIFACT RECOVERY";
+
+  decrypt.classList.add("active");
+
+  const sequence = [
+    "[AUTH] operator credential accepted // BW-SOC-271",
+    "[EVID] opening restricted artifact container...",
+    "[CRYPTO] validating recovery material...",
+    "[CRYPTO] reconstructing volatile memory segment...",
+    "[DATA] encoded PowerShell artifact located...",
+    "[DATA] extracting recovered directive...",
+    "[OK] artifact decryption complete.",
+    "",
+    "RESTRICTED RECORD AVAILABLE."
+  ];
+
+  for(const line of sequence) {
+    decrypt.textContent += line + "\n";
+    await delay(420);
+  }
+
+  await delay(900);
+
+  /*
+    This is the handoff to the final reveal page.
+    We will build final-directive.html after the NFC puzzle and movie details are set.
+  */
+  window.location.href = "final-directive.html";
+}
+
+document.getElementById("accessCode").addEventListener("keydown", function(event) {
+  if(event.key === "Enter") {
+    verifyCode();
+  }
+});
+
+</script>
+
+</body>
+</html>
