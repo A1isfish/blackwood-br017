@@ -3,10 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Assessment // Blackwood Security Operations</title>
 
 <style>
-* { box-sizing: border-box; }
+
+* {
+  box-sizing: border-box;
+}
 
 :root {
   --bg: #0f141a;
@@ -114,6 +118,13 @@ body {
   border-radius: 4px;
   font-size: 11px;
   font-weight: 700;
+  transition: all .4s ease;
+}
+
+.severity.confirmed {
+  background: rgba(224,183,91,.12);
+  border-color: rgba(224,183,91,.4);
+  color: var(--yellow);
 }
 
 .content {
@@ -196,6 +207,11 @@ select:focus {
   border-color: var(--blue);
 }
 
+select:disabled {
+  opacity: .65;
+  cursor: not-allowed;
+}
+
 .certification {
   margin-top: 20px;
   padding: 14px 16px;
@@ -230,22 +246,16 @@ button:hover {
   background: #326d9f;
 }
 
+button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
 .result {
   display: none;
   margin-top: 18px;
   padding: 18px;
   border-radius: 7px;
-}
-
-.result h2 {
-  margin: 0 0 10px;
-  font-size: 15px;
-}
-
-.result p {
-  margin: 6px 0;
-  font-size: 12px;
-  line-height: 1.5;
 }
 
 .failure {
@@ -254,47 +264,218 @@ button:hover {
   color: #efb2b2;
 }
 
-.success {
-  background: rgba(103,197,135,.07);
-  border: 1px solid rgba(103,197,135,.35);
-  color: #d8eee0;
+.failure h2 {
+  margin: 0 0 10px;
+  font-size: 15px;
+}
+
+.failure p {
+  margin: 6px 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+/* VERIFICATION CONSOLE */
+
+.verification {
+  display: none;
+  margin-top: 18px;
+  background: #0b1117;
+  border: 1px solid #30404e;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.verify-header {
+  padding: 11px 14px;
+  background: #111a22;
+  border-bottom: 1px solid #26333e;
+  font-size: 10px;
+  color: #8695a3;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.verify-console {
+  min-height: 180px;
+  padding: 16px;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 12px;
+  line-height: 1.8;
+  color: #9baab7;
+}
+
+.console-line {
+  opacity: 0;
+  transform: translateY(3px);
+  transition: all .25s ease;
+}
+
+.console-line.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.console-line.good {
+  color: var(--green);
+}
+
+.console-line.warn {
+  color: var(--yellow);
+}
+
+
+/* VERIFIED STATE */
+
+.verified-panel {
+  display: none;
+  margin-top: 18px;
+  border: 1px solid rgba(103,197,135,.38);
+  background: rgba(103,197,135,.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.verified-banner {
+  padding: 20px;
+  border-bottom: 1px solid rgba(103,197,135,.22);
+}
+
+.verified-banner .eyebrow {
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  margin-bottom: 6px;
+}
+
+.verified-banner h2 {
+  margin: 0;
+  font-size: 23px;
+  color: #dff4e6;
+}
+
+.verified-banner p {
+  margin: 8px 0 0;
+  color: #9cb4a5;
+  font-size: 12px;
 }
 
 .verified-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 16px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: rgba(103,197,135,.15);
 }
 
 .verified-item {
-  padding: 11px 12px;
-  background: rgba(0,0,0,.12);
-  border: 1px solid rgba(255,255,255,.06);
-  border-radius: 5px;
+  background: #142019;
+  padding: 15px;
   font-size: 12px;
 }
 
 .verified-item span {
   display: block;
-  color: var(--muted);
+  color: #789184;
   font-size: 9px;
   text-transform: uppercase;
   letter-spacing: .7px;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
-.containment {
-  margin-top: 18px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(103,197,135,.25);
-  color: var(--green);
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.7;
+.authorization {
+  padding: 20px;
+  background: #111a16;
 }
+
+.authorization-title {
+  color: var(--green);
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.auth-row {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.auth-label {
+  color: #708078;
+}
+
+.auth-value {
+  color: #dce8e1;
+  font-family: Consolas, Monaco, monospace;
+}
+
+.containment-action {
+  padding: 20px;
+  border-top: 1px solid rgba(103,197,135,.18);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.containment-copy strong {
+  display: block;
+  color: #dff4e6;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.containment-copy span {
+  color: #81948a;
+  font-size: 11px;
+}
+
+.containment-button {
+  display: inline-block;
+  background: #276b47;
+  border: 1px solid #3b8b61;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  padding: 12px 18px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .7px;
+  white-space: nowrap;
+}
+
+.containment-button:hover {
+  background: #318057;
+}
+
+
+/* small pulse when verification completes */
+
+@keyframes statusPulse {
+  0% {
+    box-shadow: 0 0 0 rgba(103,197,135,0);
+  }
+
+  50% {
+    box-shadow: 0 0 22px rgba(103,197,135,.18);
+  }
+
+  100% {
+    box-shadow: 0 0 0 rgba(103,197,135,0);
+  }
+}
+
+.verified-panel.reveal {
+  animation: statusPulse 1.2s ease;
+}
+
 
 @media (max-width: 950px) {
+
   .app {
     grid-template-columns: 1fr;
   }
@@ -307,9 +488,16 @@ button:hover {
   .verified-grid {
     grid-template-columns: 1fr;
   }
+
+  .containment-action {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
+
 </style>
 </head>
+
 
 <body>
 
@@ -337,6 +525,7 @@ button:hover {
 
   </aside>
 
+
   <main class="main">
 
     <div class="topbar">
@@ -345,15 +534,17 @@ button:hover {
         Incident BR-017 / <strong>Assessment</strong>
       </div>
 
-      <div class="severity">
+      <div id="severity" class="severity">
         CRITICAL INCIDENT
       </div>
 
     </div>
 
+
     <div class="content">
 
       <div class="header">
+
         <h1>Incident Assessment</h1>
 
         <p>
@@ -362,7 +553,9 @@ button:hover {
           communications. Assessment verification is required before containment authorization
           can be issued.
         </p>
+
       </div>
+
 
       <section class="panel">
 
@@ -370,12 +563,14 @@ button:hover {
           <h2>Incident Commander Determination // BR-017</h2>
         </div>
 
+
         <div class="panel-body">
 
           <div class="form-grid">
 
             <div class="field">
               <label for="user">Compromised User</label>
+
               <select id="user">
                 <option value="">Select determination...</option>
                 <option value="morgan">Morgan Carter</option>
@@ -385,8 +580,10 @@ button:hover {
               </select>
             </div>
 
+
             <div class="field">
               <label for="access">Initial Access Vector</label>
+
               <select id="access">
                 <option value="">Select determination...</option>
                 <option value="phishing">Credential Phishing</option>
@@ -396,8 +593,10 @@ button:hover {
               </select>
             </div>
 
+
             <div class="field">
               <label for="endpoint">Compromised Endpoint</label>
+
               <select id="endpoint">
                 <option value="">Select determination...</option>
                 <option value="ws018">WS-018</option>
@@ -407,8 +606,10 @@ button:hover {
               </select>
             </div>
 
+
             <div class="field">
               <label for="execution">Execution Method</label>
+
               <select id="execution">
                 <option value="">Select determination...</option>
                 <option value="powershell">PowerShell</option>
@@ -418,8 +619,10 @@ button:hover {
               </select>
             </div>
 
+
             <div class="field">
               <label for="objective">Attacker Objective</label>
+
               <select id="objective">
                 <option value="">Select determination...</option>
                 <option value="exfiltration">Data Exfiltration</option>
@@ -429,8 +632,10 @@ button:hover {
               </select>
             </div>
 
+
             <div class="field">
               <label for="data">Targeted Data</label>
+
               <select id="data">
                 <option value="">Select determination...</option>
                 <option value="nightfall">Project Nightfall</option>
@@ -442,14 +647,19 @@ button:hover {
 
           </div>
 
+
           <div class="certification">
             Incident Commander certification: submitted findings represent my current assessment
             of the BR-017 attack path based on correlated investigative evidence.
           </div>
 
+
           <div class="submit-row">
-            <button onclick="submitAssessment()">SUBMIT INCIDENT ASSESSMENT</button>
+            <button id="submitButton" onclick="submitAssessment()">
+              SUBMIT INCIDENT ASSESSMENT
+            </button>
           </div>
+
 
           <div id="failure" class="result failure">
 
@@ -465,11 +675,36 @@ button:hover {
 
           </div>
 
-          <div id="success" class="result success">
 
-            <h2>ASSESSMENT VERIFIED</h2>
+          <div id="verification" class="verification">
 
-            <p>BR-017 attack path confirmed.</p>
+            <div class="verify-header">
+              Blackwood Incident Validation Service // BR-017
+            </div>
+
+            <div id="verifyConsole" class="verify-console"></div>
+
+          </div>
+
+
+          <div id="verifiedPanel" class="verified-panel">
+
+            <div class="verified-banner">
+
+              <div class="eyebrow">
+                INCIDENT DETERMINATION ACCEPTED
+              </div>
+
+              <h2>
+                ASSESSMENT VERIFIED
+              </h2>
+
+              <p>
+                BR-017 attack path confirmed through correlated incident evidence.
+              </p>
+
+            </div>
+
 
             <div class="verified-grid">
 
@@ -505,9 +740,54 @@ button:hover {
 
             </div>
 
-            <div class="containment">
-              INCIDENT COMMANDER AUTHORIZATION ELEVATED<br>
-              CONTAINMENT PROCEDURE AVAILABLE
+
+            <div class="authorization">
+
+              <div class="authorization-title">
+                INCIDENT COMMAND AUTHORITY ELEVATED
+              </div>
+
+              <div class="auth-row">
+                <div class="auth-label">Authorized Operator</div>
+                <div class="auth-value">J.BROSSART</div>
+              </div>
+
+              <div class="auth-row">
+                <div class="auth-label">Employee ID</div>
+                <div class="auth-value">BW-SOC-271</div>
+              </div>
+
+              <div class="auth-row">
+                <div class="auth-label">Authorization Level</div>
+                <div class="auth-value">CONTAINMENT</div>
+              </div>
+
+              <div class="auth-row">
+                <div class="auth-label">Incident</div>
+                <div class="auth-value">BR-017</div>
+              </div>
+
+            </div>
+
+
+            <div class="containment-action">
+
+              <div class="containment-copy">
+
+                <strong>
+                  Containment Procedure Available
+                </strong>
+
+                <span>
+                  Active threat-response controls have been released to the assigned Incident Commander.
+                </span>
+
+              </div>
+
+              <a class="containment-button" href="containment.html">
+                INITIATE CONTAINMENT
+              </a>
+
             </div>
 
           </div>
@@ -522,18 +802,202 @@ button:hover {
 
 </div>
 
+
 <script>
-function submitAssessment() {
 
-  const user = document.getElementById("user").value;
-  const access = document.getElementById("access").value;
-  const endpoint = document.getElementById("endpoint").value;
-  const execution = document.getElementById("execution").value;
-  const objective = document.getElementById("objective").value;
-  const data = document.getElementById("data").value;
+const sleep = ms =>
+  new Promise(resolve => setTimeout(resolve, ms));
 
-  const failure = document.getElementById("failure");
-  const success = document.getElementById("success");
+
+function addConsoleLine(text, className = "") {
+
+  const consoleBox = document.getElementById("verifyConsole");
+
+  const line = document.createElement("div");
+
+  line.className = "console-line " + className;
+  line.textContent = text;
+
+  consoleBox.appendChild(line);
+
+  requestAnimationFrame(() => {
+    line.classList.add("show");
+  });
+
+}
+
+
+async function runVerification() {
+
+  const verification =
+    document.getElementById("verification");
+
+  const verifiedPanel =
+    document.getElementById("verifiedPanel");
+
+  const severity =
+    document.getElementById("severity");
+
+  document.getElementById("verifyConsole").innerHTML = "";
+
+  verification.style.display = "block";
+
+  verification.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+
+  addConsoleLine(
+    "Initializing BR-017 incident determination validation..."
+  );
+
+  await sleep(700);
+
+
+  addConsoleLine(
+    "Checking compromised identity against authentication telemetry..."
+  );
+
+  await sleep(850);
+
+
+  addConsoleLine(
+    "[MATCH] M.CARTER // anomalous remote authentication confirmed",
+    "good"
+  );
+
+  await sleep(750);
+
+
+  addConsoleLine(
+    "Correlating affected endpoint telemetry..."
+  );
+
+  await sleep(750);
+
+
+  addConsoleLine(
+    "[MATCH] WS-044 // remote session and command execution confirmed",
+    "good"
+  );
+
+  await sleep(750);
+
+
+  addConsoleLine(
+    "Reviewing execution chain..."
+  );
+
+  await sleep(700);
+
+
+  addConsoleLine(
+    "[MATCH] powershell.exe // encoded command activity confirmed",
+    "good"
+  );
+
+  await sleep(750);
+
+
+  addConsoleLine(
+    "Correlating network transfer and Research Operations access..."
+  );
+
+  await sleep(850);
+
+
+  addConsoleLine(
+    "[MATCH] outbound transfer // PROJECT NIGHTFALL exposure supported",
+    "good"
+  );
+
+  await sleep(800);
+
+
+  addConsoleLine(
+    "Reconstructing BR-017 attack path..."
+  );
+
+  await sleep(900);
+
+
+  addConsoleLine(
+    "ATTACK PATH CONFIRMED",
+    "good"
+  );
+
+  await sleep(700);
+
+
+  addConsoleLine(
+    "Elevating Incident Commander authorization...",
+    "warn"
+  );
+
+  await sleep(850);
+
+
+  addConsoleLine(
+    "CONTAINMENT AUTHORIZATION GRANTED // J.BROSSART",
+    "good"
+  );
+
+  await sleep(900);
+
+
+  severity.textContent =
+    "THREAT CONFIRMED";
+
+  severity.classList.add("confirmed");
+
+
+  verifiedPanel.style.display = "block";
+
+  verifiedPanel.classList.add("reveal");
+
+
+  verifiedPanel.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+}
+
+
+async function submitAssessment() {
+
+  const user =
+    document.getElementById("user").value;
+
+  const access =
+    document.getElementById("access").value;
+
+  const endpoint =
+    document.getElementById("endpoint").value;
+
+  const execution =
+    document.getElementById("execution").value;
+
+  const objective =
+    document.getElementById("objective").value;
+
+  const data =
+    document.getElementById("data").value;
+
+
+  const failure =
+    document.getElementById("failure");
+
+  const verification =
+    document.getElementById("verification");
+
+  const verifiedPanel =
+    document.getElementById("verifiedPanel");
+
+  const submitButton =
+    document.getElementById("submitButton");
+
 
   const complete =
     user !== "" &&
@@ -543,6 +1007,7 @@ function submitAssessment() {
     objective !== "" &&
     data !== "";
 
+
   const correct =
     user === "morgan" &&
     access === "phishing" &&
@@ -551,8 +1016,11 @@ function submitAssessment() {
     objective === "exfiltration" &&
     data === "nightfall";
 
+
   failure.style.display = "none";
-  success.style.display = "none";
+  verification.style.display = "none";
+  verifiedPanel.style.display = "none";
+
 
   if (!complete || !correct) {
 
@@ -564,15 +1032,28 @@ function submitAssessment() {
     });
 
     return;
+
   }
 
-  success.style.display = "block";
 
-  success.scrollIntoView({
-    behavior: "smooth",
-    block: "center"
+  submitButton.disabled = true;
+  submitButton.textContent =
+    "VALIDATING ASSESSMENT...";
+
+
+  document.querySelectorAll("select").forEach(select => {
+    select.disabled = true;
   });
+
+
+  await runVerification();
+
+
+  submitButton.textContent =
+    "ASSESSMENT VERIFIED";
+
 }
+
 </script>
 
 </body>
