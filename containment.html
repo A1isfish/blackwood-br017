@@ -535,7 +535,7 @@ body {
 <div class="actions-grid">
 
 
-<!-- WRONG -->
+
 <div id="cardWS031" class="action-card">
 
   <div class="action-title">
@@ -564,7 +564,7 @@ body {
 </div>
 
 
-<!-- RIGHT -->
+
 <div id="cardSession" class="action-card">
 
   <div class="action-title">
@@ -593,7 +593,7 @@ body {
 </div>
 
 
-<!-- RIGHT -->
+
 <div id="cardRoute" class="action-card">
 
   <div class="action-title">
@@ -622,7 +622,7 @@ body {
 </div>
 
 
-<!-- WRONG -->
+
 <div id="cardServer" class="action-card">
 
   <div class="action-title">
@@ -651,7 +651,7 @@ body {
 </div>
 
 
-<!-- RIGHT -->
+
 <div id="cardIdentity" class="action-card">
 
   <div class="action-title">
@@ -680,7 +680,7 @@ body {
 </div>
 
 
-<!-- WRONG -->
+
 <div id="cardWipe" class="action-card">
 
   <div class="action-title">
@@ -709,7 +709,7 @@ body {
 </div>
 
 
-<!-- WRONG -->
+
 <div id="cardJordan" class="action-card">
 
   <div class="action-title">
@@ -738,7 +738,7 @@ body {
 </div>
 
 
-<!-- RIGHT -->
+
 <div id="cardEndpoint" class="action-card">
 
   <div class="action-title">
@@ -882,6 +882,22 @@ body {
 
 
 <script>
+
+function shuffleContainmentCards() {
+  const grid = document.querySelector(".actions-grid");
+  if (!grid) return;
+
+  const cards = Array.from(grid.children);
+
+  for (let i = cards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]];
+  }
+
+  cards.forEach(card => grid.appendChild(card));
+}
+
+document.addEventListener("DOMContentLoaded", shuffleContainmentCards);
 
 const completed = {
   identity:false,
