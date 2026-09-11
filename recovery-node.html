@@ -224,103 +224,117 @@ root@brs-rn03:~# <span class="blink">_</span>
 
 <!--
 ==============================================================================
-BLACKWOOD RECOVERY WORKER // CLIENT DOCUMENT RESIDUE
-integrity: partial
-renderer: compromised
+BRS-RCV CACHE RESIDUE
+renderer faulted before object labels were restored.
+three current objects survived among archived cache entries.
 ==============================================================================
 
-fragment[0]
-type    = project
-marker  = 7C
-codec   = hex
-payload = 4e 49 47 48 54 46 41 4c 4c
-
-validation:
-- belongs to BR-017
-- do not use shortened marker "4E49474854"
-- do not use BLACKSTAR / NIGHTWATCH archive labels
+7C::4e 49 47 48 54 46 41 4c 4c
+91::4E49474854
+2A::QkxBQ0tTVEFS
 ==============================================================================
 -->
 
 <div style="display:none"
-     data-cache="QkxBQ0tTVEFS"
-     data-oldhost="V1MtOTAy"
-     data-endpoint="V1MtMDQ0"
-     data-junk="aW52YWxpZA==">
+     data-a="V1MtOTAy"
+     data-b="aW52YWxpZA=="
+     data-c="V1MtMDQ0"
+     data-d="QlctUkQtODky"
+     data-e="RXhwaXJlZA==">
 </div>
 
 <script>
 /*
- * brs-recovery-worker.js
- * deprecated fallback constructor
- *
- * WARNING:
- * several cache values are from archived incidents and are intentionally ignored.
+ * /usr/lib/brs/rcv-worker.legacy
+ * recovered from client cache after render-worker crash
  */
 
-const archivedPrincipal = "BW-RD-892";
-const archivedProject = atob("QkxBQ0tTVEFS");
-const archivedEndpoint = atob("V1MtOTAy");
+const cache = {
+  0x2A: "QkxBQ0tTVEFS",
+  0x7C: "4e4947485446414c4c",
+  0x91: "4E49474854",
+  0xB4: "V1MtOTAy",
+  0xC1: "V1MtMDQ0"
+};
 
-const endpointFragment = atob("V1MtMDQ0");
+const tombstones = new Set([0x2A, 0x91, 0xB4]);
+
+function fromHex(s){
+  return (s.match(/../g) || [])
+    .map(h => String.fromCharCode(parseInt(h,16)))
+    .join("");
+}
+
+function currentObjects(){
+  return Object.entries(cache)
+    .filter(([k]) => !tombstones.has(Number(k)))
+    .map(([,v]) => v);
+}
 
 /*
- * fragment[1]
- * type: endpoint
- * codec: base64
- *
- * use only the numeric component after decoding.
+ * secure-element readback:
+ * order flag = LE
+ * raw = 31 37 32
  */
+const se = [0x31, 0x37, 0x32];
 
 /*
- * fragment[2]
- * secure-element suffix
+ * old worker notes:
  *
- * bytes were returned least-significant first during the failed recovery read.
- * restore normal order before constructing the credential.
+ * namespace bytes were never written into access credentials.
+ * delimiter byte: 0x2d
+ * field order: 7C / C1 / SE
+ *
+ * C1 is serialized text.
+ * 7C is packed ASCII.
+ * SE follows the order flag returned by the secure element.
  */
-const secureElementBytes = ["1","7","2"];
+
+function rebuild(){
+
+  const p = fromHex(cache[0x7C]);
+
+  const h = atob(cache[0xC1]).split("-").pop();
+
+  const s = se
+    .slice()
+    .reverse()
+    .map(x => String.fromCharCode(x))
+    .join("");
+
+  const d = String.fromCharCode(0x2d);
+
+  return [p,h,s].join(d);
+}
 
 /*
- * legacy constructor schema
- *
- * credential :=
- *   PROJECT
- *   + "-"
- *   + ENDPOINT_NUMERIC
- *   + "-"
- *   + OPERATOR_SUFFIX
- *
- * Notes:
- * - PROJECT comes from marker 7C.
- * - ENDPOINT_NUMERIC comes from endpointFragment.
- * - OPERATOR_SUFFIX comes from secureElementBytes after correcting byte order.
- * - omit namespace prefixes ("WS-" and "BW-SOC-").
+ * integrity guard from old implementation:
+ * rebuilt credential is never logged to the client console.
  */
-
 function staleDiagnosticNoise(){
-  return [
+  const junk = [
     "62d41ef8",
     "c0b13922",
-    archivedPrincipal,
-    archivedProject,
-    archivedEndpoint
-  ][Math.floor(Math.random()*5)];
+    atob(cache[0x2A]),
+    atob(cache[0xB4]),
+    "BW-RD-892"
+  ];
+  return junk[Math.floor(Math.random()*junk.length)];
 }
 
 console.log("[brs] renderer integrity failure");
-console.log("[brs] retained source metadata available");
-console.log("[brs] diagnostic object:", staleDiagnosticNoise());
+console.log("[brs] source cache retained");
+console.log("[brs] stale object:", staleDiagnosticNoise());
 </script>
 
 <!--
-ARCHIVED OBJECT TABLE
-QkxBQ0tTVEFS  // archived
-V1MtOTAy      // archived
-QlctUkQtODky  // archived
-ZGVjb3k=      // archived
+cache tombstones
+2A archived
+91 incomplete
+B4 archived
 
-BR-017 fragment count: 3
+current object count: 3
+worker output suppressed by integrity guard
 -->
 </body>
 </html>
