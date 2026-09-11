@@ -1,326 +1,376 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BR-017 // Incident Assessment</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assessment // Blackwood Security Operations</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      background: #0f1720;
-      color: #d7e0e8;
-    }
+:root {
+  --bg: #0f141a;
+  --sidebar: #121820;
+  --panel: #171e27;
+  --panel-2: #1c2530;
+  --border: #2b3642;
+  --text: #e6ebf0;
+  --muted: #8d99a6;
+  --blue: #65a8ff;
+  --green: #67c587;
+  --yellow: #e0b75b;
+  --red: #f06a6a;
+}
 
-    .app {
-      display: flex;
-      min-height: 100vh;
-    }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, Arial, Helvetica, sans-serif;
+}
 
-    .sidebar {
-      width: 240px;
-      background: #111b25;
-      border-right: 1px solid #263441;
-      padding: 22px 16px;
-    }
+.app {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  min-height: 100vh;
+}
 
-    .brand {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      color: #f0f4f8;
-      margin-bottom: 6px;
-    }
+.sidebar {
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+  padding: 22px 16px;
+}
 
-    .subbrand {
-      font-size: 11px;
-      color: #7f91a2;
-      margin-bottom: 28px;
-    }
+.logo {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 28px;
+}
 
-    .nav a {
-      display: block;
-      text-decoration: none;
-      color: #9fb0bf;
-      padding: 11px 12px;
-      margin-bottom: 6px;
-      border-radius: 6px;
-      font-size: 13px;
-    }
+.logo span {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 5px;
+  letter-spacing: 1px;
+}
 
-    .nav a:hover {
-      background: #182633;
-      color: #ffffff;
-    }
+.nav-title {
+  color: #5f6c79;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 20px 10px 8px;
+}
 
-    .nav a.active {
-      background: #20364a;
-      color: #ffffff;
-      border-left: 3px solid #5d8fb8;
-      padding-left: 9px;
-    }
+.nav-item {
+  display: block;
+  padding: 11px 12px;
+  margin: 4px 0;
+  border-radius: 6px;
+  color: #b9c3cd;
+  text-decoration: none;
+  font-size: 13px;
+}
 
-    .main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
+.nav-item:hover {
+  background: #1b2430;
+}
 
-    .topbar {
-      height: 60px;
-      background: #131e29;
-      border-bottom: 1px solid #263441;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 28px;
-    }
+.nav-item.active {
+  background: #223043;
+  color: white;
+}
 
-    .topbar-left {
-      font-size: 13px;
-      color: #b9c5cf;
-    }
+.main {
+  min-width: 0;
+}
 
-    .status {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .8px;
-      color: #ff6b6b;
-    }
+.topbar {
+  height: 62px;
+  border-bottom: 1px solid var(--border);
+  background: #11171e;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
 
-    .content {
-      padding: 30px;
-      max-width: 1150px;
-      width: 100%;
-    }
+.breadcrumb {
+  font-size: 13px;
+  color: var(--muted);
+}
 
-    .eyebrow {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1.3px;
-      color: #71879a;
-      margin-bottom: 8px;
-    }
+.breadcrumb strong {
+  color: var(--text);
+}
 
-    h1 {
-      margin: 0 0 10px 0;
-      font-size: 28px;
-      font-weight: 650;
-      color: #f4f7fa;
-    }
+.severity {
+  background: rgba(240,106,106,.12);
+  border: 1px solid rgba(240,106,106,.35);
+  color: var(--red);
+  padding: 7px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+}
 
-    .intro {
-      max-width: 780px;
-      color: #a8b6c3;
-      line-height: 1.6;
-      font-size: 14px;
-      margin-bottom: 28px;
-    }
+.content {
+  padding: 26px;
+  max-width: 1100px;
+}
 
-    .panel {
-      background: #15212c;
-      border: 1px solid #2a3946;
-      border-radius: 8px;
-      padding: 24px;
-      margin-bottom: 22px;
-    }
+.header {
+  margin-bottom: 20px;
+}
 
-    .panel-title {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      color: #dbe5ed;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-    }
+.header h1 {
+  margin: 0;
+  font-size: 26px;
+}
 
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
+.header p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 800px;
+}
 
-    .field {
-      display: flex;
-      flex-direction: column;
-    }
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
 
-    label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .8px;
-      color: #8fa3b4;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
+.panel-header {
+  padding: 13px 16px;
+  background: var(--panel-2);
+  border-bottom: 1px solid var(--border);
+}
 
-    select {
-      width: 100%;
-      background: #0f1821;
-      color: #e2eaf0;
-      border: 1px solid #344656;
-      border-radius: 6px;
-      padding: 12px;
-      font-size: 13px;
-      outline: none;
-    }
+.panel-header h2 {
+  margin: 0;
+  font-size: 13px;
+}
 
-    select:focus {
-      border-color: #5d8fb8;
-    }
+.panel-body {
+  padding: 20px;
+}
 
-    .acknowledgement {
-      margin-top: 22px;
-      padding: 14px 16px;
-      background: #101a23;
-      border: 1px solid #2a3946;
-      border-radius: 6px;
-      font-size: 12px;
-      color: #91a3b1;
-      line-height: 1.5;
-    }
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
 
-    .submit-row {
-      margin-top: 22px;
-      display: flex;
-      justify-content: flex-end;
-    }
+.field {
+  display: flex;
+  flex-direction: column;
+}
 
-    button {
-      background: #2f5f86;
-      color: white;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 6px;
-      font-weight: 700;
-      letter-spacing: .5px;
-      font-size: 12px;
-      cursor: pointer;
-    }
+.field label {
+  color: var(--muted);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  margin-bottom: 7px;
+}
 
-    button:hover {
-      background: #39719e;
-    }
+select {
+  width: 100%;
+  background: #111820;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 11px 12px;
+  font-family: inherit;
+  font-size: 12px;
+  outline: none;
+}
 
-    .result {
-      display: none;
-      margin-top: 20px;
-      border-radius: 8px;
-      padding: 22px;
-    }
+select:focus {
+  border-color: var(--blue);
+}
 
-    .result h2 {
-      margin: 0 0 10px 0;
-      font-size: 18px;
-    }
+.certification {
+  margin-top: 20px;
+  padding: 14px 16px;
+  background: #121820;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
 
-    .result p {
-      margin: 7px 0;
-      line-height: 1.5;
-      font-size: 13px;
-    }
+.submit-row {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
 
-    .result.failure {
-      background: #2a1719;
-      border: 1px solid #5a2d31;
-      color: #f0c8cb;
-    }
+button {
+  background: #285d8c;
+  border: 1px solid #3976a9;
+  color: white;
+  border-radius: 5px;
+  padding: 11px 17px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .6px;
+  cursor: pointer;
+}
 
-    .result.success {
-      background: #13251f;
-      border: 1px solid #2f5a4a;
-      color: #cfe7dc;
-    }
+button:hover {
+  background: #326d9f;
+}
 
-    .verified-grid {
-      margin-top: 18px;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px 20px;
-    }
+.result {
+  display: none;
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 7px;
+}
 
-    .verified-item {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: 5px;
-      padding: 10px 12px;
-      font-size: 12px;
-    }
+.result h2 {
+  margin: 0 0 10px;
+  font-size: 15px;
+}
 
-    .verified-item span {
-      display: block;
-      color: #7f9a8e;
-      font-size: 10px;
-      letter-spacing: .7px;
-      margin-bottom: 4px;
-      text-transform: uppercase;
-    }
+.result p {
+  margin: 6px 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
 
-    .containment {
-      margin-top: 20px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255,255,255,.1);
-      font-weight: 700;
-      letter-spacing: .5px;
-      color: #e7fff3;
-    }
+.failure {
+  background: rgba(240,106,106,.08);
+  border: 1px solid rgba(240,106,106,.35);
+  color: #efb2b2;
+}
 
-    @media (max-width: 850px) {
-      .sidebar {
-        width: 190px;
-      }
+.success {
+  background: rgba(103,197,135,.07);
+  border: 1px solid rgba(103,197,135,.35);
+  color: #d8eee0;
+}
 
-      .form-grid,
-      .verified-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+.verified-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.verified-item {
+  padding: 11px 12px;
+  background: rgba(0,0,0,.12);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.verified-item span {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  margin-bottom: 4px;
+}
+
+.containment {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(103,197,135,.25);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+@media (max-width: 950px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .form-grid,
+  .verified-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 </head>
 
 <body>
-  <div class="app">
 
-    <aside class="sidebar">
-      <div class="brand">BLACKWOOD RESEARCH SYSTEMS</div>
-      <div class="subbrand">Security Operations Center</div>
+<div class="app">
 
-      <nav class="nav">
-        <a href="index.html">Overview</a>
-        <a href="alerts.html">Alerts</a>
-        <a href="authentication.html">Authentication</a>
-        <a href="endpoints.html">Endpoints</a>
-        <a href="network.html">Network</a>
-        <a href="communications.html">Communications</a>
-        <a href="assessment.html" class="active">Assessment</a>
-      </nav>
-    </aside>
+  <aside class="sidebar">
 
-    <main class="main">
+    <div class="logo">
+      BLACKWOOD
+      <span>SECURITY OPERATIONS</span>
+    </div>
 
-      <div class="topbar">
-        <div class="topbar-left">Incident BR-017 // Incident Commander Workspace</div>
-        <div class="status">SEVERITY: CRITICAL</div>
+    <div class="nav-title">Incident</div>
+
+    <a class="nav-item" href="index.html">Overview</a>
+    <a class="nav-item" href="alerts.html">Alerts</a>
+    <a class="nav-item" href="authentication.html">Authentication</a>
+    <a class="nav-item" href="endpoints.html">Endpoints</a>
+    <a class="nav-item" href="network.html">Network</a>
+    <a class="nav-item" href="communications.html">Communications</a>
+
+    <div class="nav-title">Response</div>
+
+    <a class="nav-item active" href="assessment.html">Assessment</a>
+
+  </aside>
+
+  <main class="main">
+
+    <div class="topbar">
+
+      <div class="breadcrumb">
+        Incident BR-017 / <strong>Assessment</strong>
       </div>
 
-      <section class="content">
-        <div class="eyebrow">BR-017 // Incident Commander Determination</div>
+      <div class="severity">
+        CRITICAL INCIDENT
+      </div>
+
+    </div>
+
+    <div class="content">
+
+      <div class="header">
         <h1>Incident Assessment</h1>
 
-        <div class="intro">
+        <p>
           Submit your determination of the BR-017 attack path. Findings should be based on
           correlated evidence from available Security Operations telemetry and preserved
           communications. Assessment verification is required before containment authorization
           can be issued.
+        </p>
+      </div>
+
+      <section class="panel">
+
+        <div class="panel-header">
+          <h2>Incident Commander Determination // BR-017</h2>
         </div>
 
-        <div class="panel">
-          <div class="panel-title">Attack Path Determination</div>
+        <div class="panel-body">
 
           <div class="form-grid">
 
@@ -392,7 +442,7 @@
 
           </div>
 
-          <div class="acknowledgement">
+          <div class="certification">
             Incident Commander certification: submitted findings represent my current assessment
             of the BR-017 attack path based on correlated investigative evidence.
           </div>
@@ -402,20 +452,27 @@
           </div>
 
           <div id="failure" class="result failure">
+
             <h2>ASSESSMENT NOT VERIFIED</h2>
+
             <p>
               Submitted findings do not sufficiently reconstruct the BR-017 attack path.
             </p>
+
             <p>
               Review available evidence and revise your determination.
             </p>
+
           </div>
 
           <div id="success" class="result success">
+
             <h2>ASSESSMENT VERIFIED</h2>
+
             <p>BR-017 attack path confirmed.</p>
 
             <div class="verified-grid">
+
               <div class="verified-item">
                 <span>Compromised Identity</span>
                 M.CARTER
@@ -445,59 +502,78 @@
                 <span>Targeted Data</span>
                 PROJECT NIGHTFALL
               </div>
+
             </div>
 
             <div class="containment">
               INCIDENT COMMANDER AUTHORIZATION ELEVATED<br>
               CONTAINMENT PROCEDURE AVAILABLE
             </div>
+
           </div>
 
         </div>
+
       </section>
-    </main>
-  </div>
 
-  <script>
-    function submitAssessment() {
-      const user = document.getElementById("user").value;
-      const access = document.getElementById("access").value;
-      const endpoint = document.getElementById("endpoint").value;
-      const execution = document.getElementById("execution").value;
-      const objective = document.getElementById("objective").value;
-      const data = document.getElementById("data").value;
+    </div>
 
-      const failure = document.getElementById("failure");
-      const success = document.getElementById("success");
+  </main>
 
-      const complete =
-        user !== "" &&
-        access !== "" &&
-        endpoint !== "" &&
-        execution !== "" &&
-        objective !== "" &&
-        data !== "";
+</div>
 
-      const correct =
-        user === "morgan" &&
-        access === "phishing" &&
-        endpoint === "ws044" &&
-        execution === "powershell" &&
-        objective === "exfiltration" &&
-        data === "nightfall";
+<script>
+function submitAssessment() {
 
-      failure.style.display = "none";
-      success.style.display = "none";
+  const user = document.getElementById("user").value;
+  const access = document.getElementById("access").value;
+  const endpoint = document.getElementById("endpoint").value;
+  const execution = document.getElementById("execution").value;
+  const objective = document.getElementById("objective").value;
+  const data = document.getElementById("data").value;
 
-      if (!complete || !correct) {
-        failure.style.display = "block";
-        failure.scrollIntoView({ behavior: "smooth", block: "center" });
-        return;
-      }
+  const failure = document.getElementById("failure");
+  const success = document.getElementById("success");
 
-      success.style.display = "block";
-      success.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  </script>
+  const complete =
+    user !== "" &&
+    access !== "" &&
+    endpoint !== "" &&
+    execution !== "" &&
+    objective !== "" &&
+    data !== "";
+
+  const correct =
+    user === "morgan" &&
+    access === "phishing" &&
+    endpoint === "ws044" &&
+    execution === "powershell" &&
+    objective === "exfiltration" &&
+    data === "nightfall";
+
+  failure.style.display = "none";
+  success.style.display = "none";
+
+  if (!complete || !correct) {
+
+    failure.style.display = "block";
+
+    failure.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+    return;
+  }
+
+  success.style.display = "block";
+
+  success.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+</script>
+
 </body>
 </html>
