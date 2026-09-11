@@ -3,28 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Final Directive // Blackwood Research Systems</title>
+<title>Project Nightfall // Final Directive</title>
 
 <style>
 * { box-sizing:border-box; }
 
 :root {
-  --bg:#090d10;
-  --panel:#10161c;
-  --border:#26313a;
-  --text:#e7edf2;
-  --muted:#84919d;
-  --green:#6ed18d;
-  --yellow:#e3bc61;
-  --red:#f06a6a;
+  --bg:#000000;
+  --panel:#05080b;
+  --panel2:#080d12;
+  --border:#173126;
+  --text:#f4fff8;
+  --muted:#7e978a;
+  --green:#39ff88;
+  --yellow:#ffe66d;
+  --blue:#49c8ff;
+  --pink:#ff4fa3;
+  --white:#ffffff;
+}
+
+html,body {
+  min-height:100%;
 }
 
 body {
   margin:0;
-  min-height:100vh;
   background:
-    radial-gradient(circle at 50% 0%, rgba(60,90,120,.10), transparent 35%),
-    var(--bg);
+    radial-gradient(circle at 50% -5%, rgba(57,255,136,.10), transparent 30%),
+    radial-gradient(circle at 80% 45%, rgba(255,79,163,.045), transparent 24%),
+    #000;
   color:var(--text);
   font-family:Inter,Arial,Helvetica,sans-serif;
 }
@@ -32,34 +39,35 @@ body {
 .shell {
   min-height:100vh;
   display:flex;
-  align-items:center;
   justify-content:center;
-  padding:28px;
+  align-items:flex-start;
+  padding:28px 18px 56px;
 }
 
 .wrap {
-  width:min(920px,100%);
+  width:min(940px,100%);
 }
 
 .brand {
-  margin-bottom:16px;
+  margin-bottom:14px;
   font-size:12px;
   font-weight:800;
   letter-spacing:2px;
+  color:#d8e0e7;
 }
 
 .brand span {
   display:block;
-  margin-top:4px;
+  margin-top:5px;
+  color:#58646f;
   font-size:9px;
-  color:#5d6974;
   letter-spacing:1.2px;
 }
 
 .classification {
-  border:1px solid rgba(240,106,106,.35);
-  background:rgba(240,106,106,.05);
-  color:#e79595;
+  border:1px solid rgba(130,185,255,.28);
+  background:rgba(130,185,255,.05);
+  color:#9ec8ff;
   padding:10px 12px;
   font-size:10px;
   font-weight:800;
@@ -68,28 +76,32 @@ body {
 }
 
 .panel {
-  border:1px solid var(--border);
-  background:var(--panel);
-  box-shadow:0 18px 60px rgba(0,0,0,.35);
+  border:1px solid rgba(57,255,136,.24);
+  background:rgba(3,7,8,.985);
+  box-shadow:
+    0 0 0 1px rgba(57,255,136,.025),
+    0 0 38px rgba(57,255,136,.07),
+    0 24px 80px rgba(0,0,0,.75);
 }
 
 .head {
-  padding:22px 24px 18px;
+  padding:24px 26px 20px;
   border-bottom:1px solid var(--border);
-  background:#141b22;
+  background:linear-gradient(180deg,#07100c,#030707);
 }
 
 .eyebrow {
   color:var(--yellow);
   font-size:10px;
   font-weight:800;
-  letter-spacing:1.2px;
+  letter-spacing:1.25px;
   margin-bottom:8px;
 }
 
 h1 {
   margin:0;
-  font-size:28px;
+  font-size:30px;
+  letter-spacing:.2px;
 }
 
 .subtitle {
@@ -103,114 +115,259 @@ h1 {
 }
 
 .terminal {
-  border:1px solid #213029;
+  border:1px solid #22312a;
   background:#08100b;
-  padding:16px;
+  padding:15px 16px;
   font-family:Consolas,Monaco,monospace;
   color:var(--green);
   font-size:11px;
-  line-height:1.7;
+  line-height:1.65;
   white-space:pre-wrap;
-  margin-bottom:20px;
+  margin-bottom:26px;
 }
 
-.directive {
-  border:1px solid rgba(240,106,106,.35);
-  background:rgba(240,106,106,.04);
-  padding:18px;
-  margin-bottom:18px;
+.reveal-stage {
+  text-align:center;
+  padding:10px 4px 6px;
 }
 
-.directive-label {
-  color:#df8c8c;
-  font-size:10px;
+.reveal-kicker {
+  color:#9aa7b2;
+  font-size:11px;
   font-weight:800;
-  letter-spacing:1px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
   margin-bottom:10px;
 }
 
-.directive-grid {
+.subject {
+  font-size:clamp(30px,5vw,54px);
+  font-weight:900;
+  letter-spacing:1px;
+  margin:0 0 8px;
+  color:var(--white);
+}
+
+.subject-sub {
+  color:#7f8c97;
+  font-family:Consolas,Monaco,monospace;
+  font-size:12px;
+  margin-bottom:28px;
+}
+
+.directive-card {
+  margin:0 auto;
+  max-width:760px;
+  border:1px solid rgba(237,200,108,.34);
+  background:
+    linear-gradient(180deg, rgba(237,200,108,.06), rgba(237,200,108,.025));
+  padding:28px 22px 30px;
+  box-shadow:inset 0 0 40px rgba(237,200,108,.025);
+}
+
+.directive-label {
+  color:#d7bd7d;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1.5px;
+  margin-bottom:18px;
+}
+
+.date-label {
+  color:#8e9aa5;
+  font-size:10px;
+  letter-spacing:1.25px;
+  font-weight:800;
+  margin-bottom:7px;
+}
+
+.date {
+  font-family:Consolas,Monaco,monospace;
+  font-size:clamp(34px,6vw,62px);
+  font-weight:900;
+  letter-spacing:2px;
+  color:#fff59d;
+  text-shadow:
+    0 0 8px rgba(255,230,109,.55),
+    0 0 26px rgba(255,230,109,.20);
+}
+
+.directive-copy {
+  margin-top:18px;
+  color:#9ca8b2;
+  font-size:12px;
+  line-height:1.6;
+}
+
+.arrow {
+  width:1px;
+  height:42px;
+  margin:18px auto;
+  background:linear-gradient(180deg, rgba(130,185,255,.1), rgba(130,185,255,.55));
+}
+
+.override {
+  border:1px solid rgba(57,255,136,.62);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(57,255,136,.16), transparent 72%),
+    rgba(57,255,136,.035);
+  box-shadow:
+    inset 0 0 45px rgba(57,255,136,.035),
+    0 0 28px rgba(57,255,136,.08);
+  padding:28px 18px;
+  text-align:center;
+  margin-bottom:24px;
+}
+
+.override-small {
+  color:#8fb89b;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1.4px;
+  margin-bottom:9px;
+}
+
+.override-big {
+  color:#dffff0;
+  font-size:clamp(30px,5vw,54px);
+  font-weight:950;
+  letter-spacing:.8px;
+  line-height:1.05;
+  text-shadow:
+    0 0 8px rgba(57,255,136,.65),
+    0 0 24px rgba(57,255,136,.22);
+}
+
+.override-note {
+  margin-top:12px;
+  color:#9eb2a5;
+  font-size:12px;
+}
+
+.reassignment {
+  border:1px solid rgba(73,200,255,.34);
+  background:
+    linear-gradient(135deg, rgba(73,200,255,.045), rgba(255,79,163,.025));
+  box-shadow:inset 0 0 36px rgba(73,200,255,.025);
+  padding:22px;
+}
+
+.reassignment-title {
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.reassignment-title .small {
+  color:#7f8e9b;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1.3px;
+}
+
+.reassignment-title h2 {
+  margin:6px 0 0;
+  font-size:24px;
+  color:#e9f2ff;
+}
+
+.mission {
+  margin:0 auto;
+  max-width:760px;
   display:grid;
-  grid-template-columns:180px 1fr;
-  gap:9px 15px;
+  grid-template-columns:190px 1fr;
+  gap:11px 18px;
   font-size:12px;
 }
 
 .k {
-  color:#7e8993;
+  color:#73808c;
   text-transform:uppercase;
   font-size:10px;
-  letter-spacing:.7px;
+  letter-spacing:.8px;
+  font-weight:800;
 }
 
 .v {
   font-family:Consolas,Monaco,monospace;
+  color:#dbe5ed;
 }
 
-.cancelled {
-  margin:22px 0;
-  padding:20px;
-  border:1px solid rgba(110,209,141,.4);
-  background:rgba(110,209,141,.06);
-  text-align:center;
-}
-
-.cancelled .small {
-  color:#7ca98a;
-  font-size:10px;
-  letter-spacing:1.3px;
-  font-weight:800;
-}
-
-.cancelled .big {
-  margin-top:7px;
-  color:#dff6e6;
-  font-size:30px;
+.mission-highlight {
+  color:#ffe66d;
   font-weight:900;
-  letter-spacing:1px;
-}
-
-.reassignment {
-  border:1px solid rgba(227,188,97,.35);
-  background:rgba(227,188,97,.05);
-  padding:20px;
-}
-
-.reassignment h2 {
-  margin:0 0 14px;
-  color:#f2d89d;
-  font-size:19px;
-}
-
-.mission-grid {
-  display:grid;
-  grid-template-columns:170px 1fr;
-  gap:10px 15px;
-  font-size:12px;
+  text-shadow:0 0 10px rgba(255,230,109,.25);
 }
 
 .note {
-  margin-top:20px;
-  padding-top:16px;
-  border-top:1px solid #2a333c;
-  color:#97a3ad;
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid #2a3641;
+  color:#9ca8b2;
+  text-align:center;
   font-size:12px;
-  line-height:1.65;
+  line-height:1.7;
 }
 
-.footer {
-  margin-top:12px;
+.closeout {
+  margin-top:22px;
   text-align:center;
-  color:#4f5a64;
+  padding:18px 10px 5px;
+}
+
+.closeout .closed {
+  color:#39ff88;
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:1.3px;
+  text-shadow:0 0 12px rgba(57,255,136,.42);
+}
+
+.closeout .sub {
+  margin-top:7px;
+  color:#596670;
   font-family:Consolas,Monaco,monospace;
   font-size:9px;
+  letter-spacing:.7px;
+}
+
+
+.heart {
+  margin:18px auto 4px;
+  width:52px;
+  height:52px;
+  display:grid;
+  place-items:center;
+  color:var(--pink);
+  font-size:34px;
+  line-height:1;
+  text-shadow:
+    0 0 8px rgba(255,79,163,.75),
+    0 0 24px rgba(255,79,163,.35);
+  animation:heartPulse 1.8s ease-in-out infinite;
+}
+
+.final-stamp {
+  display:inline-block;
+  margin-top:12px;
+  border:1px solid rgba(255,79,163,.38);
+  padding:7px 11px;
+  color:#ff91c4;
+  font-family:Consolas,Monaco,monospace;
+  font-size:9px;
+  letter-spacing:1.2px;
+  transform:rotate(-1deg);
+  box-shadow:0 0 18px rgba(255,79,163,.07);
+}
+
+@keyframes heartPulse {
+  0%,100% { transform:scale(1); opacity:.82; }
+  50% { transform:scale(1.10); opacity:1; }
 }
 
 @media(max-width:650px) {
-  .directive-grid,
-  .mission-grid {
-    grid-template-columns:1fr;
-  }
+  .body { padding:18px; }
+  .mission { grid-template-columns:1fr; gap:5px 0; }
+  .k { margin-top:7px; }
 }
 </style>
 </head>
@@ -232,50 +389,61 @@ h1 {
     <section class="panel">
 
       <div class="head">
-        <div class="eyebrow">RECOVERED DIRECTIVE</div>
+        <div class="eyebrow">RECOVERED EXECUTIVE DIRECTIVE</div>
         <h1>Project Nightfall</h1>
-        <p class="subtitle">
-          Decryption successful. Final directive recovered from BR-017 volatile artifact.
-        </p>
+        <p class="subtitle">BR-017 artifact decryption complete. Executive record successfully reconstructed.</p>
       </div>
 
       <div class="body">
 
         <div class="terminal">[AUTH] BW-SOC-271 accepted
-[ARCHIVE] directive container mounted
-[CRYPTO] payload integrity verified
-[DATA] recovered record classification: NIGHTFALL
-[OK] rendering executive directive...</div>
+[ARCHIVE] NIGHTFALL directive container mounted
+[CRYPTO] integrity verified
+[DATA] executive payload recovered
+[OK] authorization chain restored
+[OK] rendering final directive...</div>
 
-        <div class="directive">
-          <div class="directive-label">TERMINATION DIRECTIVE</div>
+        <div class="reveal-stage">
 
-          <div class="directive-grid">
-            <div class="k">Subject</div>
-            <div class="v">J. BROSSART</div>
+          <div class="reveal-kicker">Termination Directive</div>
 
-            <div class="k">Employee ID</div>
-            <div class="v">BW-SOC-271</div>
+          <div class="subject">J. BROSSART</div>
+          <div class="subject-sub">EMPLOYEE // BW-SOC-271</div>
 
-            <div class="k">Scheduled Termination</div>
-            <div class="v">09.11.2026</div>
+          <div class="directive-card">
+            <div class="directive-label">SCHEDULED TERMINATION</div>
 
-            <div class="k">Directive Status</div>
-            <div class="v">SUPERSEDED</div>
+            <div class="date-label">EFFECTIVE DATE</div>
+            <div class="date">09.11.2026</div>
+
+            <div class="directive-copy">
+              Directive status: SUPERSEDED<br>
+              Executive override record detected.
+            </div>
           </div>
-        </div>
 
-        <div class="cancelled">
-          <div class="small">EXECUTIVE OVERRIDE ACCEPTED</div>
-          <div class="big">TERMINATION ORDER: CANCELLED</div>
+          <div class="arrow"></div>
+
+          <div class="override">
+            <div class="override-small">EXECUTIVE OVERRIDE ACCEPTED</div>
+            <div class="override-big">TERMINATION ORDER<br>CANCELLED</div>
+            <div class="override-note">
+              Subject has exceeded projected operational duration.<br>
+              Continued retention has been authorized.
+            </div>
+          </div>
+
         </div>
 
         <div class="reassignment">
-          <h2>REASSIGNMENT ORDER</h2>
+          <div class="reassignment-title">
+            <div class="small">POST-OVERRIDE ACTION</div>
+            <h2>REASSIGNMENT ORDER</h2>
+          </div>
 
-          <div class="mission-grid">
+          <div class="mission">
             <div class="k">Mission Objective</div>
-            <div class="v">HORROR MOVIE + LEGO NIGHT</div>
+            <div class="v mission-highlight">HORROR MOVIE + LEGO NIGHT</div>
 
             <div class="k">Authorized Personnel</div>
             <div class="v">JACE BROSSART + HELENA MATISKIE</div>
@@ -297,17 +465,19 @@ h1 {
           </div>
 
           <div class="note">
-            Subject has exceeded projected operational duration. Continued retention has been authorized.
             Further relationship termination activity is not authorized at this time.
           </div>
         </div>
 
+        <div class="closeout">
+          <div class="heart">♥</div>
+          <div class="closed">BR-017 // CLOSED</div>
+          <div class="sub">NIGHTFALL // EXECUTIVE OVERRIDE COMPLETE</div>
+          <div class="final-stamp">RETENTION AUTHORIZED // 09.11.2026</div>
+        </div>
+
       </div>
     </section>
-
-    <div class="footer">
-      BR-017 // CLOSED &nbsp;&nbsp;|&nbsp;&nbsp; NIGHTFALL // OVERRIDE COMPLETE
-    </div>
 
   </div>
 </div>
