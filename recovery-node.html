@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>brs-rn03</title>
+
+<style>
+html,body{
+  margin:0;
+  min-height:100%;
+  background:#000;
+  color:#00ff21;
+  font-family:"Courier New",Consolas,monospace;
+  font-size:13px;
+  line-height:1.18;
+}
+body{
+  padding:6px 8px 24px;
+  overflow-x:auto;
+}
+pre{
+  margin:0;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+.red{
+  color:#ff2020;
+}
+.box{
+  display:inline-block;
+  border:2px solid #ff2020;
+  padding:2px 5px;
+  margin:2px 0;
+}
+.dim{color:#008f12;}
+.warn{color:#d8ff00;}
+.blink{animation:blink .75s steps(1,end) infinite;}
+@keyframes blink{50%{opacity:0}}
+::selection{
+  background:#00ff21;
+  color:#000;
+}
+</style>
+</head>
+
+<body>
+<pre>
+root@brs-rn03:~# ./blackwood_recover --incident BR-017 --physical-token /dev/nfc0
+
+BLACKWOOD RECOVERY OS 6.01-r17
+kernel 6.1.44-brs #9 SMP x86_64 GNU/Linux
+build 2026.09.07-rc4
+secure-node: BRS-RN03
+link state: DEGRADED
+token bus: ONLINE
+
+[+] NFC device /dev/nfc0
+[+] ISO14443-A target detected
+[+] UID authenticated
+[+] employee principal ........ BW-SOC-271
+[+] role ...................... INCIDENT COMMANDER
+[+] incident scope ............ BR-017
+[+] secure element ............ PASS
+[!] local recovery index ...... CORRUPT
+[!] render service ............ UNTRUSTED
+[!] node checksum ............. 3 mismatches
+
+Starting Blackwood network recovery scan at 14:02:11 CDT
+Scanning 10.44.17.0/24...
+
+Host is up (0.00081s latency).
+Not shown: 991 closed ports
+
+PORT      STATE SERVICE          VERSION
+21/tcp    open  ftp              vsftpd 3.0.5
+22/tcp    open  ssh              OpenSSH 9.8
+80/tcp    open  http             BRS internal
+111/tcp   open  rpcbind          2-4
+443/tcp   open  ssl/http         nginx 1.26.1
+445/tcp   open  microsoft-ds     Samba smbd 4.19
+2049/tcp  open  nfs              3-4
+8080/tcp  open  http-proxy       Blackwood Archive Gateway
+8443/tcp  open  ssl/https-alt    BRS Recovery Service
+
+| http-title: Blackwood Recovery Node
+| http-server-header: brs-rn03
+| ssl-cert: Subject: commonName=brs-rn03.blackwood.local
+| Not valid before: 2026-09-01T00:00:00
+| Not valid after:  2027-09-01T23:59:59
+|_ssl-date: TLS randomness does not represent time
+
+<span class="red">[CRITICAL] recovery index signature invalid</span>
+<span class="red">[CRITICAL] artifact constructor table unreadable</span>
+<span class="warn">[WARN] raw objects remain resident in client document</span>
+
+SF-Port80-TCP:V=6.01%I=7%D=9/11%Time=68C31FE3%P=x86_64-pc-linux-gnu
+SF:r(GetRequest,1F4,"HTTP/1\.1\x20200\x20OK\r\nServer:\x20brs-rn03\r\n
+SF:Content-Type:\x20text/html\r\nX-BRS-Node:\x20RECOVERY\r\nX-Integrity:
+SF:\x20FAILED\r\nConnection:\x20close\r\n\r\n");
+
+MAC Address: 08:00:27:C3:9E:1E (Cadmus Computer Systems)
+
+Nmap done: 256 IP addresses (6 hosts up) scanned in 4.91 seconds
+
+root@brs-rn03:~# mount -o ro /evidence/BR-017 /mnt/recovery
+
+[  18.009112] brsfs: journal checksum mismatch
+[  18.009209] brsfs: replay disabled
+[  18.009445] brsfs: mounting read-only
+[  18.010001] audit: node=rn03 operation="artifact_recover"
+[  18.010114] audit: principal=BW-SOC-271
+[  18.010209] audit: evidence=WS-044
+[  18.010881] audit: result=PARTIAL
+
+root@brs-rn03:~# strings -a /mnt/recovery/memory.bin | head -n 64
+
+Kx19_07A
+BLACKSTAR
+WS-902
+aW52YWxpZA==
+RXhwaXJlZA==
+0x7ff8a621
+BR-014
+NIGHTWATCH
+QkxBQ0tTVEFS
+BW-RD-892
+ZGVjb3k=
+19:44:22
+10.18.44.7
+c0b13922
+7f3a1c91
+/archive/old/
+f291ac8f
+X-OBJECT-17
+V1MtOTAy
+CORRUPT
+PURGED
+UNTRUSTED
+4E49474854
+92ab40df
+BRS-RN02
+deadbeef
+4812
+4813
+4817
+0x0010C9A
+rcv_worker
+segfault
+segfault
+segfault
+
+<span class="box">[!] renderer returned incomplete recovery object</span>
+
+root@brs-rn03:~# journalctl -u brs-recovery --no-pager
+
+Sep 11 14:02:11 rn03 brs-recovery[4812]: token principal accepted
+Sep 11 14:02:11 rn03 brs-recovery[4812]: loading constructor schema
+Sep 11 14:02:11 rn03 brs-recovery[4812]: schema checksum mismatch
+Sep 11 14:02:11 rn03 brs-recovery[4812]: fallback source map available
+Sep 11 14:02:11 rn03 brs-recovery[4812]: ui_hint_table=REMOVED
+Sep 11 14:02:11 rn03 brs-recovery[4812]: artifact fragments=3
+Sep 11 14:02:11 rn03 brs-recovery[4812]: recovered fragments not rendered
+Sep 11 14:02:11 rn03 brs-recovery[4812]: raw document retained
+Sep 11 14:02:11 rn03 brs-recovery[4812]: exit status=17
+
+root@brs-rn03:~# cat /var/log/brs/recovery.log
+
+14:02:11.113 TOKEN   /dev/nfc0             OK
+14:02:11.119 UID     04:A7:19:2D:88:31     OK
+14:02:11.127 USER    BW-SOC-271            OK
+14:02:11.131 CASE    BR-017                OK
+14:02:11.188 INDEX   artifact.map          FAIL
+14:02:11.201 CACHE   object-4f2            ORPHAN
+14:02:11.207 CACHE   object-88a            ORPHAN
+14:02:11.214 CACHE   object-c19            ORPHAN
+14:02:11.220 SOURCE  client-document       PRESENT
+14:02:11.228 HINT    rendered-output       UNTRUSTED
+
+<span class="red">DO NOT TRUST RENDERED RECOVERY LABELS.</span>
+<span class="red">RAW CONSTRUCTOR METADATA SURVIVED.</span>
+
+root@brs-rn03:~# hexdump -C /tmp/cache/object-4f2 | head
+
+00000000  13 7f 91 0a 44 2c 18 ff  42 52 53 2d 52 43 56 00  |....D,..BRS-RCV.|
+00000010  39 30 31 31 7a 03 4f 2c  44 45 43 4f 59 00 00 19  |9011z.O,DECOY...|
+00000020  62 6c 61 63 6b 73 74 61  72 00 39 30 32 00 38 39  |blackstar.902.89|
+00000030  32 00 44 45 41 44 00 01  00 00 7f 7f 41 11 92 ff  |2.DEAD......A...|
+
+root@brs-rn03:~# ps aux | grep recovery
+
+root       4812  0.1  0.0  19384  4020 ?  S  14:02  0:00 /usr/sbin/brs-recovery
+brs        4813  0.0  0.0  18320  1904 ?  S  14:02  0:00 /usr/bin/index-worker
+brs        4817  0.0  0.0  10292  1100 ?  Z  14:02  0:00 [render-worker] &lt;defunct&gt;
+
+root@brs-rn03:~# grep -R "constructor" /var/cache/brs 2&gt;/dev/null
+
+Binary file /var/cache/brs/recovery.worker matches
+Binary file /var/cache/brs/client-document matches
+
+root@brs-rn03:~# ./recovery-worker --rebuild
+
+loading principal....................... BW-SOC-271
+loading incident........................ BR-017
+loading evidence host................... WS-044
+loading source metadata................. PRESENT
+loading renderer........................ FAIL
+loading recovery fragments.............. 3 FOUND
+reconstructing credential............... <span class="red">FAILED</span>
+
+<span class="box">ERROR 0x17F3: DISPLAY LAYER CANNOT RECONSTRUCT TOKEN</span>
+
+fallback:
+  inspect retained client document
+  validate fragments against known BR-017 evidence
+  ignore values belonging to archived incidents
+  constructor metadata was not removed
+
+root@brs-rn03:~# echo $RECOVERY_STATUS
+PARTIAL
+
+root@brs-rn03:~# <span class="blink">_</span>
+</pre>
+
+<!--
+==============================================================================
+BLACKWOOD RECOVERY WORKER // CLIENT DOCUMENT RESIDUE
+integrity: partial
+renderer: compromised
+==============================================================================
+
+fragment[0]
+type    = project
+marker  = 7C
+codec   = hex
+payload = 4e 49 47 48 54 46 41 4c 4c
+
+validation:
+- belongs to BR-017
+- do not use shortened marker "4E49474854"
+- do not use BLACKSTAR / NIGHTWATCH archive labels
+==============================================================================
+-->
+
+<div style="display:none"
+     data-cache="QkxBQ0tTVEFS"
+     data-oldhost="V1MtOTAy"
+     data-endpoint="V1MtMDQ0"
+     data-junk="aW52YWxpZA==">
+</div>
+
+<script>
+/*
+ * brs-recovery-worker.js
+ * deprecated fallback constructor
+ *
+ * WARNING:
+ * several cache values are from archived incidents and are intentionally ignored.
+ */
+
+const archivedPrincipal = "BW-RD-892";
+const archivedProject = atob("QkxBQ0tTVEFS");
+const archivedEndpoint = atob("V1MtOTAy");
+
+const endpointFragment = atob("V1MtMDQ0");
+
+/*
+ * fragment[1]
+ * type: endpoint
+ * codec: base64
+ *
+ * use only the numeric component after decoding.
+ */
+
+/*
+ * fragment[2]
+ * secure-element suffix
+ *
+ * bytes were returned least-significant first during the failed recovery read.
+ * restore normal order before constructing the credential.
+ */
+const secureElementBytes = ["1","7","2"];
+
+/*
+ * legacy constructor schema
+ *
+ * credential :=
+ *   PROJECT
+ *   + "-"
+ *   + ENDPOINT_NUMERIC
+ *   + "-"
+ *   + OPERATOR_SUFFIX
+ *
+ * Notes:
+ * - PROJECT comes from marker 7C.
+ * - ENDPOINT_NUMERIC comes from endpointFragment.
+ * - OPERATOR_SUFFIX comes from secureElementBytes after correcting byte order.
+ * - omit namespace prefixes ("WS-" and "BW-SOC-").
+ */
+
+function staleDiagnosticNoise(){
+  return [
+    "62d41ef8",
+    "c0b13922",
+    archivedPrincipal,
+    archivedProject,
+    archivedEndpoint
+  ][Math.floor(Math.random()*5)];
+}
+
+console.log("[brs] renderer integrity failure");
+console.log("[brs] retained source metadata available");
+console.log("[brs] diagnostic object:", staleDiagnosticNoise());
+</script>
+
+<!--
+ARCHIVED OBJECT TABLE
+QkxBQ0tTVEFS  // archived
+V1MtOTAy      // archived
+QlctUkQtODky  // archived
+ZGVjb3k=      // archived
+
+BR-017 fragment count: 3
+-->
+</body>
+</html>
