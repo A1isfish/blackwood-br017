@@ -7,469 +7,434 @@
 <title>Containment // Blackwood Security Operations</title>
 
 <style>
-
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 :root {
-  --bg: #0f141a;
-  --sidebar: #121820;
-  --panel: #171e27;
-  --panel-2: #1c2530;
-  --border: #2b3642;
-  --text: #e6ebf0;
-  --muted: #8d99a6;
-  --blue: #65a8ff;
-  --green: #67c587;
-  --yellow: #e0b75b;
-  --red: #f06a6a;
+  --bg:#0f141a;
+  --sidebar:#121820;
+  --panel:#171e27;
+  --panel2:#1c2530;
+  --border:#2b3642;
+  --text:#e6ebf0;
+  --muted:#8d99a6;
+  --blue:#65a8ff;
+  --green:#67c587;
+  --yellow:#e0b75b;
+  --red:#f06a6a;
 }
 
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: Inter, Arial, Helvetica, sans-serif;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,Helvetica,sans-serif;
 }
 
 .app {
-  display: grid;
-  grid-template-columns: 230px 1fr;
-  min-height: 100vh;
+  display:grid;
+  grid-template-columns:230px 1fr;
+  min-height:100vh;
 }
 
 .sidebar {
-  background: var(--sidebar);
-  border-right: 1px solid var(--border);
-  padding: 22px 16px;
+  background:var(--sidebar);
+  border-right:1px solid var(--border);
+  padding:22px 16px;
 }
 
 .logo {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  margin-bottom: 28px;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  margin-bottom:28px;
 }
 
 .logo span {
-  display: block;
-  color: var(--muted);
-  font-size: 10px;
-  margin-top: 5px;
-  letter-spacing: 1px;
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:5px;
+  letter-spacing:1px;
 }
 
 .nav-title {
-  color: #5f6c79;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin: 20px 10px 8px;
+  color:#5f6c79;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  margin:20px 10px 8px;
 }
 
 .nav-item {
-  display: block;
-  padding: 11px 12px;
-  margin: 4px 0;
-  border-radius: 6px;
-  color: #b9c3cd;
-  text-decoration: none;
-  font-size: 13px;
+  display:block;
+  padding:11px 12px;
+  margin:4px 0;
+  border-radius:6px;
+  color:#b9c3cd;
+  text-decoration:none;
+  font-size:13px;
 }
 
-.nav-item:hover {
-  background: #1b2430;
-}
+.nav-item:hover { background:#1b2430; }
 
 .nav-item.active {
-  background: #223043;
-  color: white;
+  background:#223043;
+  color:white;
 }
 
-.main {
-  min-width: 0;
-}
+.main { min-width:0; }
 
 .topbar {
-  height: 62px;
-  border-bottom: 1px solid var(--border);
-  background: #11171e;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
+  height:62px;
+  border-bottom:1px solid var(--border);
+  background:#11171e;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 24px;
 }
 
 .breadcrumb {
-  font-size: 13px;
-  color: var(--muted);
+  font-size:13px;
+  color:var(--muted);
 }
 
-.breadcrumb strong {
-  color: var(--text);
-}
+.breadcrumb strong { color:var(--text); }
 
 .status {
-  background: rgba(224,183,91,.12);
-  border: 1px solid rgba(224,183,91,.35);
-  color: var(--yellow);
-  padding: 7px 10px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 700;
-  transition: all .4s ease;
+  background:rgba(224,183,91,.12);
+  border:1px solid rgba(224,183,91,.35);
+  color:var(--yellow);
+  padding:7px 10px;
+  border-radius:4px;
+  font-size:11px;
+  font-weight:700;
 }
 
 .status.contained {
-  background: rgba(103,197,135,.12);
-  border-color: rgba(103,197,135,.4);
-  color: var(--green);
+  background:rgba(103,197,135,.12);
+  border-color:rgba(103,197,135,.4);
+  color:var(--green);
 }
 
 .content {
-  padding: 26px;
-  max-width: 1200px;
+  padding:26px;
+  max-width:1200px;
 }
 
-.header {
-  margin-bottom: 20px;
-}
+.header { margin-bottom:20px; }
 
 .header h1 {
-  margin: 0;
-  font-size: 26px;
+  margin:0;
+  font-size:26px;
 }
 
 .header p {
-  margin: 7px 0 0;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.6;
-  max-width: 850px;
+  margin:7px 0 0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  max-width:850px;
 }
 
 .metrics {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin-bottom: 18px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:18px;
 }
 
 .metric {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 15px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:15px;
 }
 
 .metric-label {
-  color: var(--muted);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: .8px;
+  color:var(--muted);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.8px;
 }
 
 .metric-value {
-  margin-top: 7px;
-  font-size: 18px;
-  font-weight: 650;
+  margin-top:7px;
+  font-size:18px;
+  font-weight:650;
+  color:var(--yellow);
 }
 
-.red {
-  color: var(--red);
-}
-
-.yellow {
-  color: var(--yellow);
-}
-
-.green {
-  color: var(--green);
-}
-
-.blue {
-  color: var(--blue);
-}
+.metric-value.secured { color:var(--green); }
 
 .panel {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 18px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:8px;
+  overflow:hidden;
+  margin-bottom:18px;
 }
 
 .panel-header {
-  padding: 13px 16px;
-  background: var(--panel-2);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding:13px 16px;
+  background:var(--panel2);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 .panel-header h2 {
-  margin: 0;
-  font-size: 13px;
+  margin:0;
+  font-size:13px;
 }
 
 .panel-header span {
-  color: var(--muted);
-  font-size: 10px;
+  color:var(--muted);
+  font-size:10px;
 }
 
-.panel-body {
-  padding: 18px;
-}
+.panel-body { padding:18px; }
 
 .actions-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
 }
+
+/* EVERY ACTION STARTS IDENTICAL */
 
 .action-card {
-  border: 1px solid var(--border);
-  background: #121920;
-  border-radius: 7px;
-  padding: 15px;
-  transition: .2s ease;
+  border:1px solid var(--border);
+  background:#121920;
+  border-radius:7px;
+  padding:15px;
+  transition:.25s ease;
 }
 
-.action-card:hover {
-  border-color: #3a4a59;
+.action-card:hover { border-color:#465666; }
+
+.action-card.approved {
+  border-color:rgba(103,197,135,.5);
+  background:rgba(103,197,135,.05);
 }
 
-.action-card.complete {
-  border-color: rgba(103,197,135,.45);
-  background: rgba(103,197,135,.05);
+.action-card.denied {
+  border-color:rgba(240,106,106,.45);
+  background:rgba(240,106,106,.04);
 }
 
 .action-title {
-  font-size: 12px;
-  font-weight: 700;
-  margin-bottom: 7px;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:7px;
 }
 
 .action-desc {
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.55;
-  min-height: 48px;
-  margin-bottom: 12px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.55;
+  min-height:48px;
+  margin-bottom:12px;
 }
 
 .action-button {
-  width: 100%;
-  border: 1px solid #365c7a;
-  background: #203f58;
-  color: white;
-  border-radius: 5px;
-  padding: 10px 12px;
-  font-family: inherit;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .5px;
-  cursor: pointer;
+  width:100%;
+  border:1px solid #365c7a;
+  background:#203f58;
+  color:white;
+  border-radius:5px;
+  padding:10px 12px;
+  font-family:inherit;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.5px;
+  cursor:pointer;
+  transition:.2s ease;
 }
 
-.action-button:hover {
-  background: #28516f;
-}
+.action-button:hover { background:#28516f; }
 
 .action-button:disabled {
-  opacity: .45;
-  cursor: not-allowed;
+  opacity:.55;
+  cursor:not-allowed;
 }
 
-.action-button.danger {
-  background: #4b2427;
-  border-color: #74383e;
+.action-card.approved .action-button {
+  background:#234b36;
+  border-color:#3f7558;
+  color:#cfe9d8;
 }
 
-.action-button.danger:hover {
-  background: #5e2b30;
+.action-card.denied .action-button {
+  background:#47272a;
+  border-color:#704045;
+  color:#efc3c6;
+}
+
+.feedback {
+  display:none;
+  margin-top:10px;
+  padding:9px 10px;
+  border-radius:4px;
+  font-family:Consolas,Monaco,monospace;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.feedback.good {
+  display:block;
+  color:var(--green);
+  background:rgba(103,197,135,.06);
+}
+
+.feedback.bad {
+  display:block;
+  color:var(--red);
+  background:rgba(240,106,106,.06);
 }
 
 .log {
-  background: #0b1117;
-  border-top: 1px solid #26333e;
-  padding: 14px 16px;
-  min-height: 175px;
-  max-height: 260px;
-  overflow-y: auto;
-  font-family: Consolas, Monaco, monospace;
-  font-size: 11px;
-  line-height: 1.8;
+  background:#0b1117;
+  border-top:1px solid #26333e;
+  padding:14px 16px;
+  min-height:175px;
+  max-height:270px;
+  overflow-y:auto;
+  font-family:Consolas,Monaco,monospace;
+  font-size:11px;
+  line-height:1.8;
 }
 
-.log-line {
-  color: #91a0ac;
-}
+.log-line { color:#91a0ac; }
+.log-line.good { color:var(--green); }
+.log-line.bad { color:var(--red); }
+.log-line.warn { color:var(--yellow); }
 
-.log-line.good {
-  color: var(--green);
-}
-
-.log-line.bad {
-  color: var(--red);
-}
-
-.log-line.warn {
-  color: var(--yellow);
-}
-
-.hidden {
-  display: none;
-}
+.hidden { display:none; }
 
 .complete-panel {
-  border: 1px solid rgba(103,197,135,.4);
-  background: rgba(103,197,135,.05);
+  border:1px solid rgba(103,197,135,.4);
+  background:rgba(103,197,135,.05);
 }
 
 .complete-banner {
-  padding: 22px;
-  border-bottom: 1px solid rgba(103,197,135,.22);
+  padding:22px;
+  border-bottom:1px solid rgba(103,197,135,.22);
 }
 
 .complete-eyebrow {
-  color: var(--green);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1.1px;
-  margin-bottom: 7px;
+  color:var(--green);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:1.1px;
+  margin-bottom:7px;
 }
 
 .complete-banner h2 {
-  margin: 0;
-  font-size: 25px;
-  color: #dff4e6;
+  margin:0;
+  font-size:25px;
+  color:#dff4e6;
 }
 
 .complete-banner p {
-  margin: 8px 0 0;
-  color: #9cb4a5;
-  font-size: 12px;
+  margin:8px 0 0;
+  color:#9cb4a5;
+  font-size:12px;
 }
 
 .summary-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: rgba(103,197,135,.15);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:rgba(103,197,135,.15);
 }
 
 .summary-item {
-  background: #142019;
-  padding: 15px;
-  font-size: 12px;
+  background:#142019;
+  padding:15px;
+  font-size:12px;
 }
 
 .summary-item span {
-  display: block;
-  color: #789184;
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: .7px;
-  margin-bottom: 5px;
+  display:block;
+  color:#789184;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+  margin-bottom:5px;
 }
 
 .artifact-panel {
-  padding: 20px;
-  background: #111820;
+  padding:20px;
+  background:#111820;
 }
 
 .artifact-label {
-  color: var(--yellow);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
+  color:var(--yellow);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:1px;
+  margin-bottom:8px;
 }
 
 .artifact-panel h3 {
-  margin: 0 0 8px;
-  font-size: 16px;
+  margin:0 0 8px;
+  font-size:16px;
 }
 
 .artifact-panel p {
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.6;
-  margin: 0 0 15px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+  margin:0 0 15px;
 }
 
 .artifact-meta {
-  display: grid;
-  grid-template-columns: 160px 1fr;
-  row-gap: 8px;
-  font-size: 11px;
-  margin-bottom: 16px;
+  display:grid;
+  grid-template-columns:160px 1fr;
+  row-gap:8px;
+  font-size:11px;
+  margin-bottom:16px;
 }
 
-.meta-label {
-  color: var(--muted);
-}
+.meta-label { color:var(--muted); }
 
 .meta-value {
-  font-family: Consolas, Monaco, monospace;
+  font-family:Consolas,Monaco,monospace;
 }
 
 .artifact-button {
-  display: inline-block;
-  background: #67501f;
-  border: 1px solid #8b6c2b;
-  color: #fff4cc;
-  text-decoration: none;
-  border-radius: 5px;
-  padding: 11px 16px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .6px;
-  cursor: pointer;
+  display:inline-block;
+  background:#67501f;
+  border:1px solid #8b6c2b;
+  color:#fff4cc;
+  border-radius:5px;
+  padding:11px 16px;
+  font-family:inherit;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.6px;
+  cursor:pointer;
 }
 
-.artifact-button:hover {
-  background: #796026;
-}
+.artifact-button:hover { background:#796026; }
 
 @keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 rgba(103,197,135,0);
-  }
-
-  50% {
-    box-shadow: 0 0 25px rgba(103,197,135,.18);
-  }
-
-  100% {
-    box-shadow: 0 0 0 rgba(103,197,135,0);
-  }
+  0% { box-shadow:0 0 0 rgba(103,197,135,0); }
+  50% { box-shadow:0 0 25px rgba(103,197,135,.18); }
+  100% { box-shadow:0 0 0 rgba(103,197,135,0); }
 }
 
-.pulse {
-  animation: pulse 1.2s ease;
-}
+.pulse { animation:pulse 1.2s ease; }
 
-@media (max-width: 950px) {
-
-  .app {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    display: none;
-  }
-
+@media(max-width:950px) {
+  .app { grid-template-columns:1fr; }
+  .sidebar { display:none; }
   .metrics,
   .actions-grid,
-  .summary-grid {
-    grid-template-columns: 1fr;
-  }
+  .summary-grid { grid-template-columns:1fr; }
 }
-
 </style>
 </head>
 
@@ -477,705 +442,715 @@ body {
 
 <div class="app">
 
-  <aside class="sidebar">
+<aside class="sidebar">
 
-    <div class="logo">
-      BLACKWOOD
-      <span>SECURITY OPERATIONS</span>
-    </div>
+  <div class="logo">
+    BLACKWOOD
+    <span>SECURITY OPERATIONS</span>
+  </div>
 
-    <div class="nav-title">Incident</div>
+  <div class="nav-title">Incident</div>
 
-    <a class="nav-item" href="index.html">Overview</a>
-    <a class="nav-item" href="alerts.html">Alerts</a>
-    <a class="nav-item" href="authentication.html">Authentication</a>
-    <a class="nav-item" href="endpoints.html">Endpoints</a>
-    <a class="nav-item" href="network.html">Network</a>
-    <a class="nav-item" href="communications.html">Communications</a>
+  <a class="nav-item" href="index.html">Overview</a>
+  <a class="nav-item" href="alerts.html">Alerts</a>
+  <a class="nav-item" href="authentication.html">Authentication</a>
+  <a class="nav-item" href="endpoints.html">Endpoints</a>
+  <a class="nav-item" href="network.html">Network</a>
+  <a class="nav-item" href="communications.html">Communications</a>
 
-    <div class="nav-title">Response</div>
+  <div class="nav-title">Response</div>
 
-    <a class="nav-item" href="assessment.html">Assessment</a>
-    <a class="nav-item active" href="containment.html">Containment</a>
+  <a class="nav-item" href="assessment.html">Assessment</a>
+  <a class="nav-item active" href="containment.html">Containment</a>
 
-  </aside>
+</aside>
 
-  <main class="main">
 
-    <div class="topbar">
+<main class="main">
 
-      <div class="breadcrumb">
-        Incident BR-017 / <strong>Containment</strong>
-      </div>
+<div class="topbar">
 
-      <div id="statusBadge" class="status">
-        CONTAINMENT AUTHORIZED
-      </div>
+  <div class="breadcrumb">
+    Incident BR-017 / <strong>Containment</strong>
+  </div>
 
-    </div>
+  <div id="statusBadge" class="status">
+    CONTAINMENT IN PROGRESS
+  </div>
 
-    <div class="content">
+</div>
 
-      <div class="header">
 
-        <h1>Threat Containment</h1>
+<div class="content">
 
-        <p>
-          Incident Commander authority has been granted for BR-017.
-          Select response actions supported by the established attack path.
-          Unsupported or destructive actions will be denied by policy controls.
-        </p>
+<div class="header">
 
-      </div>
+  <h1>Threat Containment</h1>
 
-      <div class="metrics">
+  <p>
+    Incident Commander authority has been granted for BR-017.
+    Review available response actions and execute containment measures
+    supported by the established incident evidence. Blackwood policy controls
+    will validate each requested action before execution.
+  </p>
 
-        <div class="metric">
-          <div class="metric-label">Compromised Identity</div>
-          <div id="identityMetric" class="metric-value red">
-            ACTIVE
-          </div>
-        </div>
+</div>
 
-        <div class="metric">
-          <div class="metric-label">Remote Session</div>
-          <div id="sessionMetric" class="metric-value red">
-            ACTIVE
-          </div>
-        </div>
 
-        <div class="metric">
-          <div class="metric-label">WS-044</div>
-          <div id="endpointMetric" class="metric-value yellow">
-            ONLINE
-          </div>
-        </div>
+<div class="metrics">
 
-        <div class="metric">
-          <div class="metric-label">External Route</div>
-          <div id="routeMetric" class="metric-value red">
-            OPEN
-          </div>
-        </div>
+  <div class="metric">
+    <div class="metric-label">M.CARTER Identity</div>
+    <div id="identityMetric" class="metric-value">ACTIVE</div>
+  </div>
 
-      </div>
+  <div class="metric">
+    <div class="metric-label">Remote Session</div>
+    <div id="sessionMetric" class="metric-value">ACTIVE</div>
+  </div>
 
-      <section class="panel">
+  <div class="metric">
+    <div class="metric-label">WS-044</div>
+    <div id="endpointMetric" class="metric-value">ONLINE</div>
+  </div>
 
-        <div class="panel-header">
-          <h2>Authorized Response Actions</h2>
-          <span>BR-017 // J.BROSSART</span>
-        </div>
+  <div class="metric">
+    <div class="metric-label">External Route</div>
+    <div id="routeMetric" class="metric-value">OPEN</div>
+  </div>
 
-        <div class="panel-body">
+</div>
 
-          <div class="actions-grid">
 
-            <div id="cardIdentity" class="action-card">
+<section class="panel">
 
-              <div class="action-title">
-                Disable M.CARTER
-              </div>
+<div class="panel-header">
+  <h2>Available Response Actions</h2>
+  <span>COMMAND AUTHORITY // J.BROSSART</span>
+</div>
 
-              <div class="action-desc">
-                Disable the compromised Blackwood identity and prevent new authentication attempts.
-              </div>
 
-              <button
-                id="identityButton"
-                class="action-button"
-                onclick="disableIdentity()">
+<div class="panel-body">
 
-                DISABLE IDENTITY
+<div class="actions-grid">
 
-              </button>
 
-            </div>
+<!-- WRONG -->
+<div id="cardWS031" class="action-card">
 
+  <div class="action-title">
+    Isolate WS-031
+  </div>
 
-            <div id="cardSession" class="action-card">
+  <div class="action-desc">
+    Remove the Systems Engineering workstation associated with
+    removable-device activity from the production network.
+  </div>
+
+  <button
+    id="buttonWS031"
+    class="action-button"
+    onclick="requestDenied(
+      'cardWS031',
+      'buttonWS031',
+      'feedbackWS031',
+      'ACTION DENIED // WS-031 telemetry correlates with authorized maintenance activity.'
+    )">
+    REQUEST ISOLATION
+  </button>
+
+  <div id="feedbackWS031" class="feedback"></div>
+
+</div>
+
+
+<!-- RIGHT -->
+<div id="cardSession" class="action-card">
+
+  <div class="action-title">
+    Revoke Active Remote Session
+  </div>
+
+  <div class="action-desc">
+    Terminate the active remote authentication token associated
+    with the suspicious M.CARTER session.
+  </div>
+
+  <button
+    id="buttonSession"
+    class="action-button"
+    onclick="requestApproved(
+      'session',
+      'cardSession',
+      'buttonSession',
+      'feedbackSession'
+    )">
+    REQUEST REVOCATION
+  </button>
+
+  <div id="feedbackSession" class="feedback"></div>
+
+</div>
+
+
+<!-- RIGHT -->
+<div id="cardRoute" class="action-card">
+
+  <div class="action-title">
+    Block External Destination
+  </div>
+
+  <div class="action-desc">
+    Block communication with the previously unseen external destination
+    associated with abnormal outbound transfer activity.
+  </div>
+
+  <button
+    id="buttonRoute"
+    class="action-button"
+    onclick="requestApproved(
+      'route',
+      'cardRoute',
+      'buttonRoute',
+      'feedbackRoute'
+    )">
+    REQUEST NETWORK BLOCK
+  </button>
+
+  <div id="feedbackRoute" class="feedback"></div>
+
+</div>
+
+
+<!-- WRONG -->
+<div id="cardServer" class="action-card">
+
+  <div class="action-title">
+    Shutdown Research File Server
+  </div>
+
+  <div class="action-desc">
+    Disable Research Operations file infrastructure to prevent
+    additional access to sensitive research data.
+  </div>
+
+  <button
+    id="buttonServer"
+    class="action-button"
+    onclick="requestDenied(
+      'cardServer',
+      'buttonServer',
+      'feedbackServer',
+      'ACTION DENIED // service-wide shutdown exceeds evidence-supported containment scope.'
+    )">
+    REQUEST SHUTDOWN
+  </button>
+
+  <div id="feedbackServer" class="feedback"></div>
+
+</div>
+
+
+<!-- RIGHT -->
+<div id="cardIdentity" class="action-card">
+
+  <div class="action-title">
+    Disable M.CARTER
+  </div>
+
+  <div class="action-desc">
+    Disable the Research Operations identity and prevent
+    additional authentication using the account.
+  </div>
+
+  <button
+    id="buttonIdentity"
+    class="action-button"
+    onclick="requestApproved(
+      'identity',
+      'cardIdentity',
+      'buttonIdentity',
+      'feedbackIdentity'
+    )">
+    REQUEST IDENTITY DISABLE
+  </button>
+
+  <div id="feedbackIdentity" class="feedback"></div>
+
+</div>
+
+
+<!-- WRONG -->
+<div id="cardWipe" class="action-card">
+
+  <div class="action-title">
+    Wipe WS-044
+  </div>
+
+  <div class="action-desc">
+    Erase the affected workstation to remove remaining
+    attacker artifacts and executable content.
+  </div>
 
-              <div class="action-title">
-                Revoke Active Remote Session
-              </div>
+  <button
+    id="buttonWipe"
+    class="action-button"
+    onclick="requestDenied(
+      'cardWipe',
+      'buttonWipe',
+      'feedbackWipe',
+      'DESTRUCTIVE ACTION DENIED // WS-044 required for forensic preservation.'
+    )">
+    REQUEST SECURE WIPE
+  </button>
 
-              <div class="action-desc">
-                Terminate the active remote authentication token associated with the compromised session.
-              </div>
+  <div id="feedbackWipe" class="feedback"></div>
 
-              <button
-                id="sessionButton"
-                class="action-button"
-                onclick="revokeSession()">
+</div>
 
-                REVOKE SESSION
 
-              </button>
+<!-- WRONG -->
+<div id="cardJordan" class="action-card">
 
-            </div>
+  <div class="action-title">
+    Disable J.REYES
+  </div>
 
+  <div class="action-desc">
+    Disable the privileged Systems Engineering identity associated
+    with overnight administrative activity.
+  </div>
 
-            <div id="cardEndpoint" class="action-card">
+  <button
+    id="buttonJordan"
+    class="action-button"
+    onclick="requestDenied(
+      'cardJordan',
+      'buttonJordan',
+      'feedbackJordan',
+      'ACTION DENIED // J.REYES activity correlates with authorized maintenance.'
+    )">
+    REQUEST IDENTITY DISABLE
+  </button>
 
-              <div class="action-title">
-                Isolate WS-044
-              </div>
+  <div id="feedbackJordan" class="feedback"></div>
 
-              <div class="action-desc">
-                Remove the compromised endpoint from the Blackwood network while preserving forensic state.
-              </div>
+</div>
 
-              <button
-                id="endpointButton"
-                class="action-button"
-                onclick="isolateEndpoint()">
 
-                ISOLATE ENDPOINT
+<!-- RIGHT -->
+<div id="cardEndpoint" class="action-card">
 
-              </button>
+  <div class="action-title">
+    Isolate WS-044
+  </div>
 
-            </div>
+  <div class="action-desc">
+    Remove the affected workstation from the production network
+    while preserving endpoint state for forensic analysis.
+  </div>
 
+  <button
+    id="buttonEndpoint"
+    class="action-button"
+    onclick="requestApproved(
+      'endpoint',
+      'cardEndpoint',
+      'buttonEndpoint',
+      'feedbackEndpoint'
+    )">
+    REQUEST ISOLATION
+  </button>
 
-            <div id="cardRoute" class="action-card">
+  <div id="feedbackEndpoint" class="feedback"></div>
 
-              <div class="action-title">
-                Block External Destination
-              </div>
+</div>
 
-              <div class="action-desc">
-                Block communication with the previously unseen destination associated with the abnormal outbound transfer.
-              </div>
 
-              <button
-                id="routeButton"
-                class="action-button"
-                onclick="blockRoute()">
+</div>
+</div>
 
-                BLOCK DESTINATION
 
-              </button>
+<div id="eventLog" class="log">
 
-            </div>
+  <div class="log-line">
+    [SYSTEM] BR-017 containment console initialized.
+  </div>
 
+  <div class="log-line">
+    [SYSTEM] Incident Commander authorization confirmed // J.BROSSART.
+  </div>
 
-            <div class="action-card">
+  <div class="log-line warn">
+    [NOTICE] Response requests will be evaluated against established incident evidence.
+  </div>
 
-              <div class="action-title">
-                Disable J.REYES
-              </div>
+</div>
 
-              <div class="action-desc">
-                Disable the privileged Systems Engineering account associated with overnight maintenance activity.
-              </div>
+</section>
 
-              <button
-                class="action-button danger"
-                onclick="rejectAction('J.REYES containment denied // no compromise established for identity')">
 
-                DISABLE IDENTITY
+<section id="completePanel" class="panel complete-panel hidden">
 
-              </button>
+<div class="complete-banner">
 
-            </div>
+  <div class="complete-eyebrow">
+    ACTIVE INTRUSION TERMINATED
+  </div>
 
+  <h2>THREAT CONTAINED</h2>
 
-            <div class="action-card">
+  <p>
+    Blackwood Security Operations has confirmed successful
+    containment of Incident BR-017.
+  </p>
 
-              <div class="action-title">
-                Isolate WS-031
-              </div>
+</div>
 
-              <div class="action-desc">
-                Remove the Systems Engineering workstation associated with removable-device activity.
-              </div>
 
-              <button
-                class="action-button danger"
-                onclick="rejectAction('WS-031 isolation denied // telemetry consistent with authorized maintenance')">
+<div class="summary-grid">
 
-                ISOLATE ENDPOINT
+  <div class="summary-item">
+    <span>M.CARTER</span>
+    DISABLED
+  </div>
 
-              </button>
+  <div class="summary-item">
+    <span>REMOTE SESSION</span>
+    REVOKED
+  </div>
 
-            </div>
+  <div class="summary-item">
+    <span>WS-044</span>
+    ISOLATED
+  </div>
 
+  <div class="summary-item">
+    <span>EXTERNAL ROUTE</span>
+    BLOCKED
+  </div>
 
-            <div class="action-card">
+</div>
 
-              <div class="action-title">
-                Wipe WS-044
-              </div>
 
-              <div class="action-desc">
-                Erase the compromised endpoint to eliminate all remaining attacker artifacts.
-              </div>
+<div class="artifact-panel">
 
-              <button
-                class="action-button danger"
-                onclick="rejectAction('DESTRUCTIVE ACTION DENIED // forensic preservation required')">
+  <div class="artifact-label">
+    POST-CONTAINMENT FORENSIC FINDING
+  </div>
 
-                WIPE ENDPOINT
+  <h3>Recovered Volatile Artifact</h3>
 
-              </button>
+  <p>
+    Memory acquisition from WS-044 recovered a residual artifact
+    associated with the encoded PowerShell execution observed at
+    01:57:18. Automated classification was unable to determine
+    the artifact's purpose.
+  </p>
 
-            </div>
 
+  <div class="artifact-meta">
 
-            <div class="action-card">
+    <div class="meta-label">Source</div>
+    <div class="meta-value">WS-044</div>
 
-              <div class="action-title">
-                Shutdown Research File Server
-              </div>
+    <div class="meta-label">Process</div>
+    <div class="meta-value">powershell.exe</div>
 
-              <div class="action-desc">
-                Disable the Research Operations file infrastructure used by Project Nightfall personnel.
-              </div>
+    <div class="meta-label">Evidence Time</div>
+    <div class="meta-value">01:57:18</div>
 
-              <button
-                class="action-button danger"
-                onclick="rejectAction('SERVICE SHUTDOWN DENIED // scope exceeds supported containment requirements')">
+    <div class="meta-label">Classification</div>
+    <div class="meta-value">UNKNOWN / ENCODED</div>
 
-                SHUTDOWN SERVICE
+  </div>
 
-              </button>
 
-            </div>
+  <button
+    class="artifact-button"
+    onclick="openArtifact()">
+    ANALYZE RECOVERED ARTIFACT
+  </button>
 
-          </div>
+</div>
 
-        </div>
+</section>
 
-        <div id="eventLog" class="log">
-
-          <div class="log-line">
-            [SYSTEM] Containment console initialized.
-          </div>
-
-          <div class="log-line">
-            [SYSTEM] Authorization confirmed // J.BROSSART // BR-017.
-          </div>
-
-          <div class="log-line warn">
-            [NOTICE] Select response actions supported by correlated incident evidence.
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <section id="completePanel" class="panel complete-panel hidden">
-
-        <div class="complete-banner">
-
-          <div class="complete-eyebrow">
-            ACTIVE INTRUSION TERMINATED
-          </div>
-
-          <h2>
-            THREAT CONTAINED
-          </h2>
-
-          <p>
-            Blackwood Security Operations has confirmed successful containment of BR-017.
-          </p>
-
-        </div>
-
-
-        <div class="summary-grid">
-
-          <div class="summary-item">
-            <span>M.CARTER</span>
-            DISABLED
-          </div>
-
-          <div class="summary-item">
-            <span>REMOTE SESSION</span>
-            REVOKED
-          </div>
-
-          <div class="summary-item">
-            <span>WS-044</span>
-            ISOLATED
-          </div>
-
-          <div class="summary-item">
-            <span>EXTERNAL ROUTE</span>
-            BLOCKED
-          </div>
-
-        </div>
-
-
-        <div class="artifact-panel">
-
-          <div class="artifact-label">
-            POST-CONTAINMENT FORENSIC FINDING
-          </div>
-
-          <h3>
-            Recovered Volatile Artifact
-          </h3>
-
-          <p>
-            Memory acquisition from WS-044 recovered a residual artifact associated with the
-            encoded PowerShell execution observed at 01:57:18. Automated classification was
-            unable to determine the artifact's purpose.
-          </p>
-
-          <div class="artifact-meta">
-
-            <div class="meta-label">
-              Source
-            </div>
-
-            <div class="meta-value">
-              WS-044
-            </div>
-
-
-            <div class="meta-label">
-              Process
-            </div>
-
-            <div class="meta-value">
-              powershell.exe
-            </div>
-
-
-            <div class="meta-label">
-              Evidence Time
-            </div>
-
-            <div class="meta-value">
-              01:57:18
-            </div>
-
-
-            <div class="meta-label">
-              Classification
-            </div>
-
-            <div class="meta-value">
-              UNKNOWN / ENCODED
-            </div>
-
-          </div>
-
-          <button
-            class="artifact-button"
-            onclick="openArtifact()">
-
-            ANALYZE RECOVERED ARTIFACT
-
-          </button>
-
-        </div>
-
-      </section>
-
-    </div>
-
-  </main>
-
+</div>
+</main>
 </div>
 
 
 <script>
 
-let identityDisabled = false;
-let sessionRevoked = false;
-let endpointIsolated = false;
-let routeBlocked = false;
+const completed = {
+  identity:false,
+  session:false,
+  endpoint:false,
+  route:false
+};
+
+let containmentTriggered = false;
+
 
 function timestamp() {
 
-  const now = new Date();
-
-  return now.toLocaleTimeString(
+  return new Date().toLocaleTimeString(
     [],
     {
-      hour12: false,
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit"
+      hour12:false,
+      hour:"2-digit",
+      minute:"2-digit",
+      second:"2-digit"
     }
   );
 
 }
 
-function logEvent(message, type = "") {
+
+function logEvent(message,type="") {
 
   const log = document.getElementById("eventLog");
-
   const line = document.createElement("div");
 
   line.className = "log-line " + type;
-
-  line.textContent =
-    "[" + timestamp() + "] " + message;
+  line.textContent = "[" + timestamp() + "] " + message;
 
   log.appendChild(line);
-
   log.scrollTop = log.scrollHeight;
 
 }
 
-function markComplete(cardId, buttonId) {
 
-  document.getElementById(cardId)
-    .classList.add("complete");
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve,ms));
+}
 
-  const button =
-    document.getElementById(buttonId);
+
+async function requestApproved(type,cardId,buttonId,feedbackId) {
+
+  if(completed[type]) return;
+
+  const card = document.getElementById(cardId);
+  const button = document.getElementById(buttonId);
+  const feedback = document.getElementById(feedbackId);
 
   button.disabled = true;
-  button.textContent = "COMPLETED";
-
-}
-
-function disableIdentity() {
-
-  if (identityDisabled) {
-    return;
-  }
-
-  identityDisabled = true;
-
-  document.getElementById("identityMetric")
-    .textContent = "DISABLED";
-
-  document.getElementById("identityMetric")
-    .className = "metric-value green";
-
-  markComplete(
-    "cardIdentity",
-    "identityButton"
-  );
+  button.textContent = "VALIDATING REQUEST...";
 
   logEvent(
-    "Identity M.CARTER disabled.",
-    "good"
+    "Containment request received // validating against BR-017 evidence."
   );
 
+  await delay(650);
+
   logEvent(
-    "New authentication attempts blocked.",
-    "good"
+    "Policy authorization confirmed // executing response action."
   );
+
+  await delay(650);
+
+  completed[type] = true;
+
+  card.classList.add("approved");
+
+  feedback.className = "feedback good";
+  feedback.textContent = "AUTHORIZED // ACTION EXECUTED";
+
+  button.textContent = "ACTION COMPLETE";
+
+  updateState(type);
 
   checkContainment();
 
 }
 
-function revokeSession() {
 
-  if (!identityDisabled) {
+async function requestDenied(cardId,buttonId,feedbackId,message) {
+
+  const card = document.getElementById(cardId);
+  const button = document.getElementById(buttonId);
+  const feedback = document.getElementById(feedbackId);
+
+  if(button.disabled) return;
+
+  button.disabled = true;
+  button.textContent = "VALIDATING REQUEST...";
+
+  logEvent(
+    "Containment request received // validating against BR-017 evidence."
+  );
+
+  await delay(700);
+
+  card.classList.add("denied");
+
+  feedback.className = "feedback bad";
+  feedback.textContent = message;
+
+  button.textContent = "REQUEST DENIED";
+
+  logEvent(message,"bad");
+
+}
+
+
+function updateState(type) {
+
+  if(type === "identity") {
+
+    const metric = document.getElementById("identityMetric");
+
+    metric.textContent = "DISABLED";
+    metric.classList.add("secured");
 
     logEvent(
-      "SESSION REVOCATION HELD // disable compromised identity before terminating active token.",
-      "warn"
+      "Identity M.CARTER disabled // new authentication blocked.",
+      "good"
     );
 
-    return;
   }
 
-  if (sessionRevoked) {
-    return;
-  }
 
-  sessionRevoked = true;
+  if(type === "session") {
 
-  document.getElementById("sessionMetric")
-    .textContent = "REVOKED";
+    const metric = document.getElementById("sessionMetric");
 
-  document.getElementById("sessionMetric")
-    .className = "metric-value green";
-
-  markComplete(
-    "cardSession",
-    "sessionButton"
-  );
-
-  logEvent(
-    "Active remote session token revoked.",
-    "good"
-  );
-
-  logEvent(
-    "Remote attacker session terminated.",
-    "good"
-  );
-
-  checkContainment();
-
-}
-
-function isolateEndpoint() {
-
-  if (!sessionRevoked) {
+    metric.textContent = "REVOKED";
+    metric.classList.add("secured");
 
     logEvent(
-      "ENDPOINT ISOLATION HELD // active remote token remains valid.",
-      "warn"
+      "Active M.CARTER remote token revoked.",
+      "good"
     );
 
-    return;
   }
 
-  if (endpointIsolated) {
-    return;
-  }
 
-  endpointIsolated = true;
+  if(type === "endpoint") {
 
-  document.getElementById("endpointMetric")
-    .textContent = "ISOLATED";
+    const metric = document.getElementById("endpointMetric");
 
-  document.getElementById("endpointMetric")
-    .className = "metric-value green";
-
-  markComplete(
-    "cardEndpoint",
-    "endpointButton"
-  );
-
-  logEvent(
-    "WS-044 isolated from Blackwood production network.",
-    "good"
-  );
-
-  logEvent(
-    "Forensic state preserved.",
-    "good"
-  );
-
-  checkContainment();
-
-}
-
-function blockRoute() {
-
-  if (!endpointIsolated) {
+    metric.textContent = "ISOLATED";
+    metric.classList.add("secured");
 
     logEvent(
-      "NETWORK BLOCK HELD // compromised endpoint remains connected.",
-      "warn"
+      "WS-044 isolated // forensic state preserved.",
+      "good"
     );
 
-    return;
   }
 
-  if (routeBlocked) {
-    return;
+
+  if(type === "route") {
+
+    const metric = document.getElementById("routeMetric");
+
+    metric.textContent = "BLOCKED";
+    metric.classList.add("secured");
+
+    logEvent(
+      "External transfer destination blocked.",
+      "good"
+    );
+
   }
-
-  routeBlocked = true;
-
-  document.getElementById("routeMetric")
-    .textContent = "BLOCKED";
-
-  document.getElementById("routeMetric")
-    .className = "metric-value green";
-
-  markComplete(
-    "cardRoute",
-    "routeButton"
-  );
-
-  logEvent(
-    "Previously unseen external destination blocked.",
-    "good"
-  );
-
-  logEvent(
-    "Associated outbound communication path closed.",
-    "good"
-  );
-
-  checkContainment();
 
 }
 
-function rejectAction(message) {
 
-  logEvent(
-    message,
-    "bad"
-  );
+async function checkContainment() {
 
-}
+  if(containmentTriggered) return;
 
-function checkContainment() {
-
-  if (
-    identityDisabled &&
-    sessionRevoked &&
-    endpointIsolated &&
-    routeBlocked
+  if(
+    completed.identity &&
+    completed.session &&
+    completed.endpoint &&
+    completed.route
   ) {
 
-    setTimeout(() => {
+    containmentTriggered = true;
 
-      logEvent(
-        "Running post-containment validation..."
-      );
+    await delay(700);
 
-    }, 500);
+    logEvent(
+      "All evidence-supported containment controls executed."
+    );
+
+    await delay(850);
+
+    logEvent(
+      "Validating active authentication state..."
+    );
+
+    await delay(750);
+
+    logEvent(
+      "No active attacker session detected.",
+      "good"
+    );
+
+    await delay(750);
+
+    logEvent(
+      "Validating endpoint isolation..."
+    );
+
+    await delay(650);
+
+    logEvent(
+      "WS-044 network isolation confirmed.",
+      "good"
+    );
+
+    await delay(700);
+
+    logEvent(
+      "Validating outbound communication controls..."
+    );
+
+    await delay(650);
+
+    logEvent(
+      "No active BR-017 outbound route detected.",
+      "good"
+    );
+
+    await delay(800);
+
+    logEvent(
+      "BR-017 CONTAINMENT VERIFIED.",
+      "good"
+    );
 
 
-    setTimeout(() => {
+    const badge = document.getElementById("statusBadge");
 
-      logEvent(
-        "No active BR-017 attacker sessions detected.",
-        "good"
-      );
-
-    }, 1200);
+    badge.textContent = "THREAT CONTAINED";
+    badge.classList.add("contained");
 
 
-    setTimeout(() => {
-
-      logEvent(
-        "BR-017 containment state verified.",
-        "good"
-      );
-
-      document.getElementById("statusBadge")
-        .textContent = "THREAT CONTAINED";
-
-      document.getElementById("statusBadge")
-        .classList.add("contained");
-
-    }, 1900);
+    await delay(850);
 
 
-    setTimeout(() => {
+    const panel = document.getElementById("completePanel");
 
-      const panel =
-        document.getElementById("completePanel");
+    panel.classList.remove("hidden");
+    panel.classList.add("pulse");
 
-      panel.classList.remove("hidden");
-
-      panel.classList.add("pulse");
-
-      panel.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
-    }, 2600);
+    panel.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
 
   }
 
 }
 
+
 function openArtifact() {
-
-  window.location.href =
-    "artifact.html";
-
+  window.location.href = "artifact.html";
 }
 
 </script>
