@@ -474,6 +474,77 @@ button:disabled {
 }
 
 
+/* FATAL VALIDATION FAILURE OVERLAY */
+#fatalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #05080b;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  overflow: hidden;
+}
+
+#fatalOverlay.active {
+  display: flex;
+}
+
+.fatal-noise {
+  position: absolute;
+  inset: 0;
+  opacity: .08;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,.06) 0,
+    rgba(255,255,255,.06) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
+
+.fatal-shell {
+  position: relative;
+  width: min(900px, 100%);
+  border: 1px solid rgba(240,106,106,.45);
+  background: #090d12;
+  box-shadow: 0 0 60px rgba(240,106,106,.08);
+  padding: 28px;
+}
+
+.fatal-kicker {
+  color: #9aa7b3;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.fatal-title {
+  margin: 0 0 20px;
+  color: var(--red);
+  font-size: 34px;
+  letter-spacing: 1px;
+}
+
+.fatal-console {
+  min-height: 260px;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #b9c3cd;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.fatal-corrupt {
+  color: #e88f8f;
+  text-shadow: 0 0 8px rgba(240,106,106,.3);
+}
+
+
 @media (max-width: 950px) {
 
   .app {
@@ -803,6 +874,15 @@ button:disabled {
 </div>
 
 
+<div id="fatalOverlay" aria-hidden="true">
+  <div class="fatal-noise"></div>
+  <div class="fatal-shell">
+    <div class="fatal-kicker">BLACKWOOD // INCIDENT VALIDATION SERVICE // BR-017</div>
+    <h1 class="fatal-title">VALIDATION FAILURE</h1>
+    <div id="fatalConsole" class="fatal-console"></div>
+  </div>
+</div>
+
 <script>
 
 function shuffleAssessmentOptions() {
@@ -824,11 +904,66 @@ function shuffleAssessmentOptions() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", shuffleAssessmentOptions);
+document.addEventListener("DOMContentLoaded", () => {
+  shuffleAssessmentOptions();
+
+  document.querySelectorAll("select").forEach(select => {
+    select.addEventListener("change", () => {
+      const failure = document.getElementById("failure");
+      if (failure) {
+        failure.style.display = "none";
+      }
+    });
+  });
+});
 
 
 const sleep = ms =>
   new Promise(resolve => setTimeout(resolve, ms));
+
+let failedAssessmentAttempts = 0;
+
+function corruptString(length = 92) {
+  const chars = "01ABCDEF#$%&@!?/\\[]{}<>-=+_░▒▓";
+  let output = "";
+  for (let i = 0; i < length; i++) {
+    output += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return output;
+}
+
+async function terminateAssessmentSession() {
+  const overlay = document.getElementById("fatalOverlay");
+  const consoleBox = document.getElementById("fatalConsole");
+
+  overlay.classList.add("active");
+  overlay.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  consoleBox.innerHTML = "";
+
+  const lines = [
+    ["ERR // INCIDENT DETERMINATION HASH MISMATCH", 260],
+    ["ERR // VALIDATION STATE UNTRUSTED", 340],
+    ["DECRYPTING DECISION CACHE...", 360],
+    ["DECRYPTION ERROR // " + corruptString(58), 280],
+    [corruptString(110), 220],
+    ["COMMAND SESSION INTEGRITY: FAILED", 320],
+    ["BR-017 ASSESSMENT SESSION TERMINATED", 380],
+    ["RETURNING TO SECURITY OPERATIONS...", 950]
+  ];
+
+  for (const [line, delay] of lines) {
+    const row = document.createElement("div");
+    row.textContent = "> " + line;
+    if (line.includes("░") || line.includes("▒") || line.includes("▓")) {
+      row.className = "fatal-corrupt";
+    }
+    consoleBox.appendChild(row);
+    await sleep(delay);
+  }
+
+  window.location.replace("index.html");
+}
 
 
 function addConsoleLine(text, className = "") {
@@ -1045,6 +1180,17 @@ async function submitAssessment() {
 
 
   if (!complete || !correct) {
+
+    failedAssessmentAttempts++;
+
+    if (failedAssessmentAttempts >= 3) {
+      submitButton.disabled = true;
+      document.querySelectorAll("select").forEach(select => {
+        select.disabled = true;
+      });
+      await terminateAssessmentSession();
+      return;
+    }
 
     failure.style.display = "block";
 
