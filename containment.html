@@ -137,35 +137,6 @@ body {
   max-width:850px;
 }
 
-.metrics {
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-  margin-bottom:18px;
-}
-
-.metric {
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:8px;
-  padding:15px;
-}
-
-.metric-label {
-  color:var(--muted);
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.8px;
-}
-
-.metric-value {
-  margin-top:7px;
-  font-size:18px;
-  font-weight:650;
-  color:var(--yellow);
-}
-
-.metric-value.secured { color:var(--green); }
 
 .panel {
   background:var(--panel);
@@ -499,7 +470,6 @@ body {
 @media(max-width:950px) {
   .app { grid-template-columns:1fr; }
   .sidebar { display:none; }
-  .metrics,
   .actions-grid,
   .summary-grid { grid-template-columns:1fr; }
 }
@@ -561,31 +531,6 @@ body {
     supported by the established incident evidence. Blackwood policy controls
     will validate each requested action before execution.
   </p>
-
-</div>
-
-
-<div class="metrics">
-
-  <div class="metric">
-    <div class="metric-label">M.CARTER Identity</div>
-    <div id="identityMetric" class="metric-value">ACTIVE</div>
-  </div>
-
-  <div class="metric">
-    <div class="metric-label">Remote Session</div>
-    <div id="sessionMetric" class="metric-value">ACTIVE</div>
-  </div>
-
-  <div class="metric">
-    <div class="metric-label">WS-044</div>
-    <div id="endpointMetric" class="metric-value">ONLINE</div>
-  </div>
-
-  <div class="metric">
-    <div class="metric-label">External Route</div>
-    <div id="routeMetric" class="metric-value">OPEN</div>
-  </div>
 
 </div>
 
@@ -1161,66 +1106,34 @@ async function triggerContainmentFailure() {
 function updateState(type) {
 
   if(type === "identity") {
-
-    const metric = document.getElementById("identityMetric");
-
-    metric.textContent = "DISABLED";
-    metric.classList.add("secured");
-
     logEvent(
       "Identity M.CARTER disabled // new authentication blocked.",
       "good"
     );
-
   }
 
-
   if(type === "session") {
-
-    const metric = document.getElementById("sessionMetric");
-
-    metric.textContent = "REVOKED";
-    metric.classList.add("secured");
-
     logEvent(
       "Active M.CARTER remote token revoked.",
       "good"
     );
-
   }
 
-
   if(type === "endpoint") {
-
-    const metric = document.getElementById("endpointMetric");
-
-    metric.textContent = "ISOLATED";
-    metric.classList.add("secured");
-
     logEvent(
       "WS-044 isolated // forensic state preserved.",
       "good"
     );
-
   }
 
-
   if(type === "route") {
-
-    const metric = document.getElementById("routeMetric");
-
-    metric.textContent = "BLOCKED";
-    metric.classList.add("secured");
-
     logEvent(
       "External transfer destination blocked.",
       "good"
     );
-
   }
 
 }
-
 
 async function checkContainment() {
 
