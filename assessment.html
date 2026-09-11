@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BR-017 // Incident Assessment</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: #0f1720;
+      color: #d7e0e8;
+    }
+
+    .app {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 240px;
+      background: #111b25;
+      border-right: 1px solid #263441;
+      padding: 22px 16px;
+    }
+
+    .brand {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: #f0f4f8;
+      margin-bottom: 6px;
+    }
+
+    .subbrand {
+      font-size: 11px;
+      color: #7f91a2;
+      margin-bottom: 28px;
+    }
+
+    .nav a {
+      display: block;
+      text-decoration: none;
+      color: #9fb0bf;
+      padding: 11px 12px;
+      margin-bottom: 6px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    .nav a:hover {
+      background: #182633;
+      color: #ffffff;
+    }
+
+    .nav a.active {
+      background: #20364a;
+      color: #ffffff;
+      border-left: 3px solid #5d8fb8;
+      padding-left: 9px;
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      height: 60px;
+      background: #131e29;
+      border-bottom: 1px solid #263441;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+    }
+
+    .topbar-left {
+      font-size: 13px;
+      color: #b9c5cf;
+    }
+
+    .status {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .8px;
+      color: #ff6b6b;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 1150px;
+      width: 100%;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+      color: #71879a;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0 0 10px 0;
+      font-size: 28px;
+      font-weight: 650;
+      color: #f4f7fa;
+    }
+
+    .intro {
+      max-width: 780px;
+      color: #a8b6c3;
+      line-height: 1.6;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .panel {
+      background: #15212c;
+      border: 1px solid #2a3946;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 22px;
+    }
+
+    .panel-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #dbe5ed;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .8px;
+      color: #8fa3b4;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    select {
+      width: 100%;
+      background: #0f1821;
+      color: #e2eaf0;
+      border: 1px solid #344656;
+      border-radius: 6px;
+      padding: 12px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    select:focus {
+      border-color: #5d8fb8;
+    }
+
+    .acknowledgement {
+      margin-top: 22px;
+      padding: 14px 16px;
+      background: #101a23;
+      border: 1px solid #2a3946;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #91a3b1;
+      line-height: 1.5;
+    }
+
+    .submit-row {
+      margin-top: 22px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    button {
+      background: #2f5f86;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #39719e;
+    }
+
+    .result {
+      display: none;
+      margin-top: 20px;
+      border-radius: 8px;
+      padding: 22px;
+    }
+
+    .result h2 {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+    }
+
+    .result p {
+      margin: 7px 0;
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .result.failure {
+      background: #2a1719;
+      border: 1px solid #5a2d31;
+      color: #f0c8cb;
+    }
+
+    .result.success {
+      background: #13251f;
+      border: 1px solid #2f5a4a;
+      color: #cfe7dc;
+    }
+
+    .verified-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 20px;
+    }
+
+    .verified-item {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 5px;
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+
+    .verified-item span {
+      display: block;
+      color: #7f9a8e;
+      font-size: 10px;
+      letter-spacing: .7px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .containment {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      font-weight: 700;
+      letter-spacing: .5px;
+      color: #e7fff3;
+    }
+
+    @media (max-width: 850px) {
+      .sidebar {
+        width: 190px;
+      }
+
+      .form-grid,
+      .verified-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+    <aside class="sidebar">
+      <div class="brand">BLACKWOOD RESEARCH SYSTEMS</div>
+      <div class="subbrand">Security Operations Center</div>
+
+      <nav class="nav">
+        <a href="index.html">Overview</a>
+        <a href="alerts.html">Alerts</a>
+        <a href="authentication.html">Authentication</a>
+        <a href="endpoints.html">Endpoints</a>
+        <a href="network.html">Network</a>
+        <a href="communications.html">Communications</a>
+        <a href="assessment.html" class="active">Assessment</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+
+      <div class="topbar">
+        <div class="topbar-left">Incident BR-017 // Incident Commander Workspace</div>
+        <div class="status">SEVERITY: CRITICAL</div>
+      </div>
+
+      <section class="content">
+        <div class="eyebrow">BR-017 // Incident Commander Determination</div>
+        <h1>Incident Assessment</h1>
+
+        <div class="intro">
+          Submit your determination of the BR-017 attack path. Findings should be based on
+          correlated evidence from available Security Operations telemetry and preserved
+          communications. Assessment verification is required before containment authorization
+          can be issued.
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Attack Path Determination</div>
+
+          <div class="form-grid">
+
+            <div class="field">
+              <label for="user">Compromised User</label>
+              <select id="user">
+                <option value="">Select determination...</option>
+                <option value="morgan">Morgan Carter</option>
+                <option value="jordan">Jordan Reyes</option>
+                <option value="avery">Avery Chen</option>
+                <option value="elias">Elias Ward</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="access">Initial Access Vector</label>
+              <select id="access">
+                <option value="">Select determination...</option>
+                <option value="phishing">Credential Phishing</option>
+                <option value="vulnerability">Exploited Vulnerability</option>
+                <option value="usb">Removable Media</option>
+                <option value="insider">Insider Access</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="endpoint">Compromised Endpoint</label>
+              <select id="endpoint">
+                <option value="">Select determination...</option>
+                <option value="ws018">WS-018</option>
+                <option value="ws031">WS-031</option>
+                <option value="ws044">WS-044</option>
+                <option value="ws052">WS-052</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="execution">Execution Method</label>
+              <select id="execution">
+                <option value="">Select determination...</option>
+                <option value="powershell">PowerShell</option>
+                <option value="cmd">Command Prompt</option>
+                <option value="scheduled">Scheduled Task</option>
+                <option value="removable">Removable Media</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="objective">Attacker Objective</label>
+              <select id="objective">
+                <option value="">Select determination...</option>
+                <option value="exfiltration">Data Exfiltration</option>
+                <option value="persistence">Persistence</option>
+                <option value="disruption">Service Disruption</option>
+                <option value="destruction">Credential Destruction</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="data">Targeted Data</label>
+              <select id="data">
+                <option value="">Select determination...</option>
+                <option value="nightfall">Project Nightfall</option>
+                <option value="finance">Finance Records</option>
+                <option value="authdb">Authentication Database</option>
+                <option value="systems">Systems Engineering Archives</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="acknowledgement">
+            Incident Commander certification: submitted findings represent my current assessment
+            of the BR-017 attack path based on correlated investigative evidence.
+          </div>
+
+          <div class="submit-row">
+            <button onclick="submitAssessment()">SUBMIT INCIDENT ASSESSMENT</button>
+          </div>
+
+          <div id="failure" class="result failure">
+            <h2>ASSESSMENT NOT VERIFIED</h2>
+            <p>
+              Submitted findings do not sufficiently reconstruct the BR-017 attack path.
+            </p>
+            <p>
+              Review available evidence and revise your determination.
+            </p>
+          </div>
+
+          <div id="success" class="result success">
+            <h2>ASSESSMENT VERIFIED</h2>
+            <p>BR-017 attack path confirmed.</p>
+
+            <div class="verified-grid">
+              <div class="verified-item">
+                <span>Compromised Identity</span>
+                M.CARTER
+              </div>
+
+              <div class="verified-item">
+                <span>Affected Endpoint</span>
+                WS-044
+              </div>
+
+              <div class="verified-item">
+                <span>Initial Access</span>
+                Credential Phishing
+              </div>
+
+              <div class="verified-item">
+                <span>Execution</span>
+                PowerShell
+              </div>
+
+              <div class="verified-item">
+                <span>Objective</span>
+                Data Exfiltration
+              </div>
+
+              <div class="verified-item">
+                <span>Targeted Data</span>
+                PROJECT NIGHTFALL
+              </div>
+            </div>
+
+            <div class="containment">
+              INCIDENT COMMANDER AUTHORIZATION ELEVATED<br>
+              CONTAINMENT PROCEDURE AVAILABLE
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    function submitAssessment() {
+      const user = document.getElementById("user").value;
+      const access = document.getElementById("access").value;
+      const endpoint = document.getElementById("endpoint").value;
+      const execution = document.getElementById("execution").value;
+      const objective = document.getElementById("objective").value;
+      const data = document.getElementById("data").value;
+
+      const failure = document.getElementById("failure");
+      const success = document.getElementById("success");
+
+      const complete =
+        user !== "" &&
+        access !== "" &&
+        endpoint !== "" &&
+        execution !== "" &&
+        objective !== "" &&
+        data !== "";
+
+      const correct =
+        user === "morgan" &&
+        access === "phishing" &&
+        endpoint === "ws044" &&
+        execution === "powershell" &&
+        objective === "exfiltration" &&
+        data === "nightfall";
+
+      failure.style.display = "none";
+      success.style.display = "none";
+
+      if (!complete || !correct) {
+        failure.style.display = "block";
+        failure.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      success.style.display = "block";
+      success.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  </script>
+</body>
+</html>
