@@ -805,6 +805,28 @@ button:disabled {
 
 <script>
 
+function shuffleAssessmentOptions() {
+  document.querySelectorAll("select").forEach(select => {
+    const placeholder = select.querySelector('option[value=""]');
+    const choices = Array.from(select.querySelectorAll('option:not([value=""])'));
+
+    for (let i = choices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [choices[i], choices[j]] = [choices[j], choices[i]];
+    }
+
+    choices.forEach(option => select.appendChild(option));
+
+    if (placeholder) {
+      select.insertBefore(placeholder, select.firstChild);
+      placeholder.selected = true;
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", shuffleAssessmentOptions);
+
+
 const sleep = ms =>
   new Promise(resolve => setTimeout(resolve, ms));
 
